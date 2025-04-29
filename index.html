@@ -125,6 +125,8 @@
       <img src="images/img5.jpg" alt="Proyecto 5">
       <img src="images/img6.jpg" alt="Proyecto 6">
       <img src="images/img7.jpg" alt="Proyecto 7">
+      <img src="images/img8.jpg" alt="Proyecto 8">
+      <img src="images/img9.jpg" alt="Proyecto 9">
     </div>
     <button class="carousel-button prev" aria-label="Anterior"><</button>
     <button class="carousel-button next" aria-label="Siguiente">></button>
@@ -147,7 +149,7 @@
 </footer>
 
 <script>
-// Script JS local (sin cambios)
+// Script JS con console.log añadido
 document.addEventListener('DOMContentLoaded', () => {
 
   const header = document.querySelector('header');
@@ -174,6 +176,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextButton = carousel?.querySelector('.carousel-button.next');
   if (track && prevButton && nextButton) {
     const slides = Array.from(track.children);
+    // --- INICIO: LÍNEA DE DEBUGGING ---
+    console.log("Número de slides detectados:", slides.length);
+    // --- FIN: LÍNEA DE DEBUGGING ---
     let slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
     let currentIndex = 0; let autoPlayInterval = null; const autoPlayDelay = 3000;
     function moveToSlide(index) { if (slideWidth <= 0 || slides.length === 0) return; const newIndex = Math.max(0, Math.min(index, slides.length - 1)); track.style.transform = 'translateX(-' + slideWidth * newIndex + 'px)'; currentIndex = newIndex; }
