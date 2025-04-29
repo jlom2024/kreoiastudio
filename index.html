@@ -23,7 +23,21 @@
       text-align: center;
       padding: 100px 20px; /* Padding para móvil */
     }
-    header h1 { font-size: 3em; margin-bottom: 0.5em; }
+    header h1 {
+       font-size: 1rem; /* Resetea el tamaño de fuente */
+       line-height: 1; /* Evita espacio extra */
+       margin-bottom: 1em; /* Ajusta el margen inferior si es necesario */
+    }
+    /* --- Estilo para el Logo en el Header --- */
+    .header-logo {
+      max-width: 250px; /* Ancho máximo del logo (ajústalo a tu gusto) */
+      width: 70%;       /* Ancho relativo al contenedor (ajusta si es necesario) */
+      height: auto;     /* Mantiene la proporción de la imagen */
+      display: block;   /* Permite usar márgenes automáticos para centrar si es necesario */
+      margin: 0 auto 0.5em auto;   /* Centra el logo y añade margen inferior */
+    }
+    /* --- Fin Estilo Logo --- */
+
     header p { font-size: 1.2em; max-width: 600px; margin: 0 auto; }
     nav { text-align: center; margin: 40px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
     nav a { color: #ff6600; text-decoration: none; font-weight: bold; font-size: 1.2em; padding: 10px; transition: transform 0.3s ease; }
@@ -82,26 +96,20 @@
     .fade-in { opacity: 0; transition: opacity 2s ease; }
     .fade-in.visible { opacity: 1; }
 
-    /* --- INICIO: Estilos específicos para pantallas grandes (Desktop) --- */
-    @media (min-width: 992px) { /* Aplica esto si la pantalla mide 992px o más */
+    /* --- Estilos específicos para pantallas grandes (Desktop) --- */
+    @media (min-width: 992px) {
       header {
-        /* Hacer el header mucho más alto */
-        min-height: 90vh; /* Ocupa el 90% de la altura de la ventana. Prueba 80vh, 95vh o 100vh si prefieres */
-
-        /* Usar Flexbox para centrar el contenido verticalmente */
+        min-height: 90vh;
         display: flex;
-        flex-direction: column; /* Apilar elementos (h1, p, nav) verticalmente */
-        justify-content: center; /* Centrar verticalmente */
-        align-items: center; /* Centrar horizontalmente */
-
-        /* Ajustar padding: eliminar el vertical, mantener el horizontal */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         padding: 0 20px;
       }
-
-      /* Opcional: Añadir un poco de margen inferior a la navegación si se ve muy pegada */
-      header nav {
-         /* Puedes ajustar el margin-top/bottom aquí si es necesario */
-         /* margin-bottom: 30px; */
+       /* Aumentar tamaño del logo en desktop si se desea */
+      .header-logo {
+          max-width: 350px; /* Un poco más grande en desktop */
+          width: auto; /* Permitir que max-width controle el tamaño */
       }
     }
     /* --- FIN: Estilos específicos para pantallas grandes (Desktop) --- */
@@ -111,7 +119,9 @@
 <body>
 
 <header>
-  <h1>KREO IA Studio</h1>
+  <h1>
+    <img src="LogoR.png" alt="KREO IA Studio Logo" class="header-logo">
+  </h1>
   <p>Innovación a través de la unión del ingenio humano y la creatividad de la Inteligencia Artificial.</p>
   <nav>
     <a href="#quienes-somos">¿Quiénes Somos?</a>
@@ -176,23 +186,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0; // Initial width
 
     function updateSlideWidth() {
-        // Only update if there are slides
         if (slides.length > 0) {
             const newSlideWidth = slides[0].getBoundingClientRect().width;
-            if (newSlideWidth > 0) { // Check if width is valid
+            if (newSlideWidth > 0) {
                 slideWidth = newSlideWidth;
-                track.style.transition = 'none'; // Disable transition during resize adjustment
+                track.style.transition = 'none';
                 track.style.transform = 'translateX(-' + slideWidth * currentIndex + 'px)';
-                void track.offsetWidth; // Force reflow/repaint
-                track.style.transition = 'transform 0.5s ease-in-out'; // Re-enable transition
+                void track.offsetWidth;
+                track.style.transition = 'transform 0.5s ease-in-out';
             }
         }
     }
 
-
     function moveToSlide(index) {
       if (slideWidth > 0 && slides.length > 0) {
-          // Clamp index to valid range
           const newIndex = Math.max(0, Math.min(index, slides.length - 1));
           track.style.transform = 'translateX(-' + slideWidth * newIndex + 'px)';
           currentIndex = newIndex;
@@ -200,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let autoPlayInterval = setInterval(() => {
-      if (slides.length > 0) { // Only advance if there are slides
+      if (slides.length > 0) {
         let nextIndex = currentIndex + 1;
         if (nextIndex >= slides.length) {
           nextIndex = 0;
@@ -213,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(carousel) {
         carousel.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
         carousel.addEventListener('mouseleave', () => {
-             // Restart interval only if there are slides
              if (slides.length > 0) {
                  autoPlayInterval = setInterval(() => {
                     let nextIndex = currentIndex + 1;
@@ -227,11 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
      window.addEventListener('resize', () => {
-         // Use timeout to debounce resize events slightly
          setTimeout(updateSlideWidth, 150);
      });
 
-     // Initial calculation needed after DOM is ready
      updateSlideWidth();
   }
 
@@ -242,9 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // observer.unobserve(entry.target); // Uncomment for performance
+        // observer.unobserve(entry.target);
       } else {
-        // entry.target.classList.remove('visible'); // Uncomment to re-animate
+        // entry.target.classList.remove('visible');
       }
     });
   };
