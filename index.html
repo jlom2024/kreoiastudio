@@ -63,7 +63,6 @@
 
     /* --- Estilos para Logo Marquee --- */
     #logo-strip {
-        /* AJUSTE: Reducir padding vertical */
         padding: 15px 0;
         background-color: #111;
         overflow: hidden;
@@ -87,8 +86,7 @@
         animation-play-state: paused;
     }
     .partner-logo {
-        /* AJUSTE: Aumentar altura base (móvil) */
-        height: 80px; /* Antes 40px */
+        height: 80px; /* Altura móvil */
         width: auto;
         margin: 0 40px;
         flex-shrink: 0;
@@ -124,10 +122,9 @@
       .header-subtitle { opacity: 0; animation: fadeInRise 1.2s ease-out 0.3s forwards; margin-bottom: 1.5em; }
       header nav { margin-top: 30px; margin-bottom: 20px; }
       #pulsating-logo { width: 150px; top: 20px; left: 20px; }
-      /* AJUSTE: Aumentar altura y margen en desktop */
        .partner-logo {
-           height: 100px; /* Antes 50px */
-           margin: 0 60px; /* Más espacio horizontal */
+           height: 100px; /* Altura desktop */
+           margin: 0 60px;
        }
     }
   </style>
@@ -185,25 +182,25 @@
   </div>
 </section>
 
-<!-- Sección de Logos Partners -->
+<!-- Sección de Logos Partners CORREGIDA -->
 <section id="logo-strip" aria-labelledby="partners-heading">
     <div class="logo-marquee-container">
         <div class="logo-marquee-track">
-            <!-- LISTA DE LOGOS REALES (REEMPLAZAR CON LOS TUYOS) -->
-            <img src="logo-cliente-1.png" alt="Logo 1" class="partner-logo">
-            <img src="logo-cliente-2.png" alt="Logo 2" class="partner-logo">
-            <img src="logo-cliente-3.png" alt="Logo 3" class="partner-logo">
-            <img src="logo-cliente-4.png" alt="Logo 4" class="partner-logo">
-            <img src="logo-cliente-5.png" alt="Logo 5" class="partner-logo">
-            <img src="logo-cliente-6.png" alt="Logo 6" class="partner-logo"><!-- Asumo que este es el 6to logo de la imagen -->
+            <!-- LISTA DE LOGOS CORREGIDA (Ruta, Mayúsculas, Extensión) -->
+            <img src="images/Logo-Cliente-1.png" alt="Logo Cliente 1" class="partner-logo">
+            <img src="images/Logo-Cliente-2.png" alt="Logo Cliente 2" class="partner-logo">
+            <img src="images/Logo-Cliente-3.png" alt="Logo Cliente 3" class="partner-logo">
+            <img src="images/Logo-Cliente-4.png" alt="Logo Cliente 4" class="partner-logo">
+            <img src="images/Logo-Cliente-5.png" alt="Logo Cliente 5" class="partner-logo">
+            <img src="images/Logo-Cliente-6.jpeg" alt="Logo Cliente 6" class="partner-logo"> <!-- Ojo: .jpeg -->
 
-            <!-- COPIA EXACTA -->
-            <img src="logo-cliente-1.png" alt="Logo 1" class="partner-logo">
-            <img src="logo-cliente-2.png" alt="Logo 2" class="partner-logo">
-            <img src="logo-cliente-3.png" alt="Logo 3" class="partner-logo">
-            <img src="logo-cliente-4.png" alt="Logo 4" class="partner-logo">
-            <img src="logo-cliente-5.png" alt="Logo 5" class="partner-logo">
-            <img src="logo-cliente-6.png" alt="Logo 6" class="partner-logo">
+            <!-- COPIA EXACTA CORREGIDA -->
+            <img src="images/Logo-Cliente-1.png" alt="Logo Cliente 1" class="partner-logo">
+            <img src="images/Logo-Cliente-2.png" alt="Logo Cliente 2" class="partner-logo">
+            <img src="images/Logo-Cliente-3.png" alt="Logo Cliente 3" class="partner-logo">
+            <img src="images/Logo-Cliente-4.png" alt="Logo Cliente 4" class="partner-logo">
+            <img src="images/Logo-Cliente-5.png" alt="Logo Cliente 5" class="partner-logo">
+            <img src="images/Logo-Cliente-6.jpeg" alt="Logo Cliente 6" class="partner-logo"> <!-- Ojo: .jpeg -->
         </div>
     </div>
 </section>
