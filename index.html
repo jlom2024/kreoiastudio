@@ -8,8 +8,9 @@
   <meta name="author" content="Jorge Luis Ordoñez M.">
   <meta property="og:title" content="KREO IA Studio – Creatividad Humano-IA">
   <meta property="og:description" content="Proyectos creativos únicos fruto de la colaboración entre inteligencia artificial y talento humano.">
-  <meta property="og:image" content="https://tu-dominio.com/imagen-og.jpg">
-  <meta property="og:url" content="https://tu-dominio.com/">
+  <!-- Asegúrate de que esta URL e imagen sean correctas para tu dominio real -->
+  <meta property="og:image" content="https://kreoiastudio.netlify.app/images/representacion-burbuja.png"> <!-- Ejemplo usando una imagen de tu repo -->
+  <meta property="og:url" content="https://kreoiastudio.netlify.app/"> <!-- URL de tu sitio -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_ES">
   <meta property="og:site_name" content="KREO IA Studio">
@@ -75,13 +76,14 @@
   <h2>Portafolio</h2>
   <div class="carousel">
     <div class="carousel-track">
-      <img src="images/img1_v1.jpg" alt="Proyecto 1">
-      <img src="images/img2_v1.jpg" alt="Proyecto 2">
-      <img src="images/img3_v1.jpg" alt="Proyecto 3">
-      <img src="images/img4_v1.jpg" alt="Proyecto 4">
-      <img src="images/img5_v1.jpg" alt="Proyecto 5">
-      <img src="images/img6_v1.jpg" alt="Proyecto 6">
-      <img src="images/img7_v1.jpg" alt="Proyecto 7">
+      <!-- Rutas corregidas para que coincidan con los nombres de archivo en el repo (sin _v1) -->
+      <img src="images/img1.jpg" alt="Proyecto 1">
+      <img src="images/img2.jpg" alt="Proyecto 2">
+      <img src="images/img3.jpg" alt="Proyecto 3">
+      <img src="images/img4.jpg" alt="Proyecto 4">
+      <img src="images/img5.jpg" alt="Proyecto 5">
+      <img src="images/img6.jpg" alt="Proyecto 6">
+      <img src="images/img7.jpg" alt="Proyecto 7">
     </div>
   </div>
 </section>
@@ -102,7 +104,64 @@
 </footer>
 
 <script>
-// Script permanece igual
+// Script JS para el carrusel (si lo tienes o lo añades después)
+// y para las animaciones 'reveal' y 'fade-in'
+document.addEventListener('DOMContentLoaded', () => {
+  // Funcionalidad del carrusel (ejemplo básico)
+  const track = document.querySelector('.carousel-track');
+  if (track && track.children.length > 1) { // Solo si hay más de una imagen
+    let currentIndex = 0;
+    const slides = Array.from(track.children);
+    const slideWidth = slides[0].getBoundingClientRect().width;
+
+    // Clonar primera y última para bucle infinito (opcional, mejora la experiencia)
+
+    function moveToSlide(index) {
+      track.style.transform = 'translateX(-' + slideWidth * index + 'px)';
+      currentIndex = index;
+    }
+
+    // Añadir botones o auto-play si se desea
+    // Ejemplo simple de auto-play cada 3 segundos
+    setInterval(() => {
+      let nextIndex = currentIndex + 1;
+      if (nextIndex >= slides.length) {
+        nextIndex = 0; // Vuelve al principio
+      }
+      moveToSlide(nextIndex);
+    }, 3000);
+  }
+
+
+  // Funcionalidad para animaciones al hacer scroll
+  const revealElements = document.querySelectorAll('.reveal');
+  const fadeInElements = document.querySelectorAll('.fade-in');
+
+  const observerOptions = {
+    root: null, // viewport
+    threshold: 0.1 // Trigger cuando el 10% del elemento es visible
+  };
+
+  const observerCallback = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Opcional: dejar de observar una vez que es visible
+        // observer.unobserve(entry.target);
+      } else {
+         // Opcional: quitar la clase si sale de la vista para re-animar
+         // entry.target.classList.remove('visible');
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+  revealElements.forEach(el => observer.observe(el));
+  fadeInElements.forEach(el => observer.observe(el));
+
+});
+
 </script>
 
 </body>
