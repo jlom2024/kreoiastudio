@@ -24,93 +24,57 @@
       overflow: hidden;
     }
     header::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       background: url('images/fondo-soñado.jpg') center center / cover no-repeat;
-      z-index: -1;
-      transition: transform 0.1s linear;
+      z-index: -1; transition: transform 0.1s linear;
       transform: perspective(1000px) rotateX(var(--header-tilt-x, 0deg)) rotateY(var(--header-tilt-y, 0deg));
       will-change: transform;
     }
-    header h1 {
-       font-size: 1rem;
-       line-height: 1;
-       margin-bottom: 0;
-       position: relative;
-       z-index: 1;
-    }
-    .header-logo {
-      max-width: 250px;
-      width: 70%;
-      height: auto;
-      display: block;
-      margin: 0 auto 1em auto;
-      position: relative;
-      z-index: 1;
-    }
-    .header-subtitle {
-        font-size: 1.2em;
-        max-width: 600px;
-        margin: 0 auto;
-        opacity: 1;
-        transition: opacity 0.5s;
-        position: relative;
-        z-index: 1;
-    }
-    nav {
-       text-align: center;
-       margin: 40px 0;
-       display: flex;
-       flex-wrap: wrap;
-       justify-content: center;
-       gap: 20px;
-       position: relative;
-       z-index: 1;
-    }
+    header h1 { font-size: 1rem; line-height: 1; margin-bottom: 0; position: relative; z-index: 1; }
+    .header-logo { max-width: 250px; width: 70%; height: auto; display: block; margin: 0 auto 1em auto; position: relative; z-index: 1; }
+    .header-subtitle { font-size: 1.2em; max-width: 600px; margin: 0 auto; opacity: 1; transition: opacity 0.5s; position: relative; z-index: 1; }
+    nav { text-align: center; margin: 40px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; position: relative; z-index: 1; }
     nav a { color: #ff6600; text-decoration: none; font-weight: bold; font-size: 1.2em; padding: 10px; transition: transform 0.3s ease; }
     nav a:hover { animation: bounce 0.6s; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     @keyframes fadeInRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-    #pulsating-logo {
-        position: fixed;
-        top: 15px; left: 15px; width: 100px;
-        height: auto; z-index: 1000;
-        animation: pulsate 1.5s ease-in-out infinite;
-        will-change: transform;
-    }
+    #pulsating-logo { position: fixed; top: 15px; left: 15px; width: 100px; height: auto; z-index: 1000; animation: pulsate 1.5s ease-in-out infinite; will-change: transform; }
     @keyframes pulsate { 0% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.9; } }
 
     section { max-width: 1000px; margin: auto; padding: 40px 20px; }
     h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
     .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
 
-    /* --- INICIO: Ajustes Servicios con Hover (Opción B) --- */
+    /* --- INICIO: Ajustes Servicios Transparencia --- */
     .service {
       position: relative; background-size: cover; background-position: center;
       border-radius: 10px; overflow: hidden; padding: 20px; text-align: center;
       height: 300px; display: flex; flex-direction: column; justify-content: flex-end;
       background-repeat: no-repeat; color: white;
     }
-    .service::before { /* Degradado base */
+    .service::before { /* Degradado base (sin cambios) */
       content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
       border-radius: 10px; z-index: 1;
-      /* No necesita transición aquí si solo cambiamos el texto */
     }
     .service h3, .service p { /* Estilos base del texto */
       background-color: transparent; margin: 0; padding: 5px 10px;
       position: relative; z-index: 2;
-      color: white; /* Color base */
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* Sombra base */
-      transition: color 0.3s ease, text-shadow 0.3s ease; /* Transición suave */
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Sombra ligera inicial */
+      /* AJUSTE CLAVE: Opacidad por defecto */
+      opacity: 0.7; /* Prueba 0.6, 0.75, 0.8 según veas */
+      /* Transición suave para opacidad y sombra */
+      transition: opacity 0.3s ease, text-shadow 0.3s ease;
     }
     .service:hover h3, .service:hover p { /* Estilos del texto en hover */
-        color: #fff; /* Blanco brillante */
-        text-shadow: 1px 1px 1px rgba(0,0,0,1); /* Sombra más nítida */
+        /* AJUSTE CLAVE: Opacidad completa */
+        opacity: 1;
+        /* Sombra más nítida opcional para mejorar contraste */
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
     }
-    /* --- FIN: Ajustes Servicios con Hover --- */
+    /* --- FIN: Ajustes Servicios Transparencia --- */
 
     .carousel { position: relative; overflow: hidden; max-width: 600px; margin: 40px auto; border-radius: 10px; }
     .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
@@ -132,10 +96,7 @@
     .fade-in.visible { opacity: 1; }
 
     @media (min-width: 992px) {
-      header {
-        min-height: 85vh; display: flex; flex-direction: column;
-        justify-content: center; align-items: center; padding: 0 20px;
-      }
+      header { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 20px; }
       header::before { background-position: center 35%; }
       .header-logo { max-width: 350px; width: auto; margin-bottom: 2.5em; }
       .header-subtitle { opacity: 0; animation: fadeInRise 1.2s ease-out 0.3s forwards; margin-bottom: 1.5em; }
