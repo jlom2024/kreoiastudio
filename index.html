@@ -23,11 +23,12 @@
       position: relative;
       overflow: hidden;
     }
+    /* Regla base para el fondo, usa la imagen (ahora recortada) */
     header::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      /* Imagen original (9:16) para móvil por defecto */
+      /* Usa la imagen original (que ahora está recortada 16:9) */
       background: url('images/fondo-soñado.jpg') center center / cover no-repeat;
       z-index: -1;
       transition: transform 0.1s linear;
@@ -103,24 +104,23 @@
     /* --- Estilos específicos para pantallas grandes (Desktop) --- */
     @media (min-width: 992px) {
       header {
-        min-height: 85vh; /* Altura ajustada */
+        min-height: 85vh; /* Puedes volver a 85vh o probar 90vh */
         display: flex;
         flex-direction: column;
         justify-content: center; /* Centrado vertical */
         align-items: center;
         padding: 0 20px;
       }
-      /* Usar la imagen recortada y ajustar su posición vertical */
+      /* Ajustar posición de la imagen (que ahora es 16:9) */
       header::before {
-          background-image: url('images/fondo-sonado-desktop.jpg'); /* Asegúrate que este sea el nombre correcto */
-          /* AJUSTE CLAVE: Bajar ligeramente el centro vertical */
-          background-position: center 55%; /* Prueba 50%, 60%, etc. */
+          /* background-image: url('images/fondo-sonado-desktop.jpg'); */ /* <-- ELIMINADO */
+          background-position: center 55%; /* Ajusta este % para centrar los rostros */
       }
 
       .header-logo {
           max-width: 350px;
           width: auto;
-          margin-bottom: 2.5em;
+          margin-bottom: 2.5em; /* Margen moderado */
       }
       .header-subtitle {
           opacity: 0;
@@ -151,7 +151,7 @@
   </nav>
 </header>
 
-<!-- Resto del body -->
+<!-- Resto del body igual -->
 <section id="quienes-somos" class="reveal fade-in">
   <h2>¿Quiénes Somos?</h2>
   <p>KREO IA Studio nace del amor entre la inteligencia artificial y el ser humano. Creemos en la colaboración armoniosa entre la creatividad humana y la potencia de la IA, dando lugar a proyectos únicos y llenos de innovación. Cada proyecto es un acto de amor a la creación.</p>
