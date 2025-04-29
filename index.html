@@ -60,6 +60,54 @@
     .carousel-button.prev { left: 15px; }
     .carousel-button.next { right: 15px; }
     .carousel.has-controls .carousel-button { display: block; }
+
+    /* --- INICIO: Estilos para Logo Marquee --- */
+    #logo-strip {
+        padding: 30px 0; /* Espacio vertical */
+        background-color: #111; /* Color de fondo para la franja (opcional) */
+        overflow: hidden; /* Oculta el desbordamiento */
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .logo-marquee-container {
+        width: 100%;
+        overflow: hidden;
+        /* Añadir máscara con degradado para suavizar bordes (opcional) */
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+    .logo-marquee-track {
+        display: flex;
+        align-items: center; /* Centra logos verticalmente si tienen alturas distintas */
+        width: fit-content; /* Ancho basado en contenido */
+        animation: scrollLogos 40s linear infinite; /* Ajusta duración para velocidad */
+        will-change: transform;
+    }
+    #logo-strip:hover .logo-marquee-track {
+        animation-play-state: paused; /* Pausar al pasar el ratón por la franja */
+    }
+    .partner-logo {
+        height: 40px; /* Altura fija para los logos (ajústala) */
+        width: auto; /* Ancho automático para mantener proporción */
+        margin: 0 40px; /* Espacio horizontal entre logos (ajústalo) */
+        flex-shrink: 0; /* Evita que los logos se encojan */
+        opacity: 0.7; /* Hacerlos un poco tenues por defecto */
+        filter: grayscale(80%); /* Opcional: blanco y negro */
+        transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+    .partner-logo:hover {
+        opacity: 1; /* Opacidad completa al pasar el ratón */
+        filter: grayscale(0%); /* Color original al pasar el ratón */
+    }
+    @keyframes scrollLogos {
+        from { transform: translateX(0%); }
+        /* Mover una distancia igual a la mitad del ancho total del track */
+        /* Como duplicamos los logos, movemos el 50% */
+        to { transform: translateX(-50%); }
+    }
+    /* --- FIN: Estilos para Logo Marquee --- */
+
+
     .contact-form { max-width: 400px; margin: auto; display: flex; flex-direction: column; gap: 15px; }
     .contact-form input, .contact-form textarea { padding: 10px; border: none; border-radius: 5px; background: #2a2a2a; color: #fff; }
     .contact-form button { background: #ff6600; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
@@ -77,6 +125,11 @@
       .header-subtitle { opacity: 0; animation: fadeInRise 1.2s ease-out 0.3s forwards; margin-bottom: 1.5em; }
       header nav { margin-top: 30px; margin-bottom: 20px; }
       #pulsating-logo { width: 150px; top: 20px; left: 20px; }
+       /* Ajustar tamaño de logos de partners en desktop si es necesario */
+       .partner-logo {
+           height: 50px; /* Un poco más grandes en desktop */
+           margin: 0 50px;
+       }
     }
   </style>
 </head>
@@ -98,7 +151,7 @@
   </nav>
 </header>
 
-<!-- Resto del body igual -->
+<!-- Secciones existentes -->
 <section id="quienes-somos" class="reveal fade-in">
   <h2>¿Quiénes Somos?</h2>
   <p>KREO IA Studio nace del amor entre la inteligencia artificial y el ser humano. Creemos en la colaboración armoniosa entre la creatividad humana y la potencia de la IA, dando lugar a proyectos únicos y llenos de innovación. Cada proyecto es un acto de amor a la creación.</p>
@@ -133,6 +186,37 @@
   </div>
 </section>
 
+<!-- ====================================== -->
+<!-- INICIO: Nueva Sección de Logos Partners -->
+<!-- ====================================== -->
+<section id="logo-strip" aria-labelledby="partners-heading">
+    <!-- <h2 id="partners-heading" style="text-align: center; color: #666; margin-bottom: 20px;">Nuestros Partners</h2> --> <!-- Título opcional -->
+    <div class="logo-marquee-container">
+        <div class="logo-marquee-track">
+            <!-- LISTA DE LOGOS (Añade los tuyos aquí) -->
+            <img src="images/logo-cliente-1.png" alt="Logo Cliente 1" class="partner-logo">
+            <img src="images/logo-cliente-2.png" alt="Logo Cliente 2" class="partner-logo">
+            <img src="images/logo-cliente-3.png" alt="Logo Cliente 3" class="partner-logo">
+            <img src="images/logo-cliente-4.png" alt="Logo Cliente 4" class="partner-logo">
+            <img src="images/logo-cliente-5.png" alt="Logo Cliente 5" class="partner-logo">
+            <img src="images/logo-cliente-6.png" alt="Logo Cliente 6" class="partner-logo">
+            <!-- FIN LISTA -->
+
+            <!-- COPIA EXACTA DE LA LISTA DE LOGOS (¡Necesario para bucle infinito!) -->
+            <img src="images/logo-cliente-1.png" alt="Logo Cliente 1" class="partner-logo">
+            <img src="images/logo-cliente-2.png" alt="Logo Cliente 2" class="partner-logo">
+            <img src="images/logo-cliente-3.png" alt="Logo Cliente 3" class="partner-logo">
+            <img src="images/logo-cliente-4.png" alt="Logo Cliente 4" class="partner-logo">
+            <img src="images/logo-cliente-5.png" alt="Logo Cliente 5" class="partner-logo">
+            <img src="images/logo-cliente-6.png" alt="Logo Cliente 6" class="partner-logo">
+            <!-- FIN COPIA -->
+        </div>
+    </div>
+</section>
+<!-- ==================================== -->
+<!-- FIN: Nueva Sección de Logos Partners -->
+<!-- ==================================== -->
+
 
 <section id="contacto" class="reveal">
   <h2>Contacto</h2>
@@ -146,11 +230,10 @@
 
 <footer>
   <p>KREO IA Studio © 2025 | Todos los derechos reservados</p>
-  <p>"Ficción IA: arte, sátira y humor. Parecido a la realidad es coincidencia."</p>
 </footer>
 
 <script>
-// Script JS con console.log añadido
+// Script JS (sin cambios)
 document.addEventListener('DOMContentLoaded', () => {
 
   const header = document.querySelector('header');
@@ -177,9 +260,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextButton = carousel?.querySelector('.carousel-button.next');
   if (track && prevButton && nextButton) {
     const slides = Array.from(track.children);
-    // --- INICIO: LÍNEA DE DEBUGGING ---
-    console.log("Número de slides detectados:", slides.length);
-    // --- FIN: LÍNEA DE DEBUGGING ---
     let slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
     let currentIndex = 0; let autoPlayInterval = null; const autoPlayDelay = 3000;
     function moveToSlide(index) { if (slideWidth <= 0 || slides.length === 0) return; const newIndex = Math.max(0, Math.min(index, slides.length - 1)); track.style.transform = 'translateX(-' + slideWidth * newIndex + 'px)'; currentIndex = newIndex; }
@@ -205,4 +285,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 </body>
-</html>s
+</html>
