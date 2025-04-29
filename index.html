@@ -19,7 +19,7 @@
     body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
     header {
       text-align: center;
-      padding: 100px 20px; /* Padding para móvil */
+      padding: 100px 20px;
       position: relative;
       overflow: hidden;
     }
@@ -27,7 +27,7 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: url('images/fondo-soñado.jpg') center center / cover no-repeat; /* Base position */
+      background: url('images/fondo-soñado.jpg') center center / cover no-repeat;
       z-index: -1;
       transition: transform 0.1s linear;
       transform: perspective(1000px) rotateX(var(--header-tilt-x, 0deg)) rotateY(var(--header-tilt-y, 0deg));
@@ -73,34 +73,45 @@
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     @keyframes fadeInRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* --- Estilos y animación para logo pulsante --- */
     #pulsating-logo {
         position: fixed;
-        /* AJUSTE: Tamaño y posición base (MÓVIL) */
-        top: 15px;
-        left: 15px;
-        width: 100px;     /* Tamaño para móvil */
-        height: auto;
-        z-index: 1000;
+        top: 15px; left: 15px; width: 100px;
+        height: auto; z-index: 1000;
         animation: pulsate 1.5s ease-in-out infinite;
         will-change: transform;
     }
+    @keyframes pulsate { 0% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.9; } }
 
-    @keyframes pulsate {
-        0% { transform: scale(1); opacity: 0.9; }
-        50% { transform: scale(1.1); opacity: 1; }
-        100% { transform: scale(1); opacity: 0.9; }
-    }
-    /* --- FIN: Estilos y animación para logo pulsante --- */
-
-
-    /* --- RESTO DE ESTILOS --- */
     section { max-width: 1000px; margin: auto; padding: 40px 20px; }
     h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
     .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
-    .service { position: relative; background-size: cover; background-position: center; border-radius: 10px; overflow: hidden; padding: 20px; text-align: center; height: 300px; display: flex; flex-direction: column; justify-content: flex-end; background-repeat: no-repeat; color: white; }
-    .service::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%); border-radius: 10px; z-index: 1; }
-    .service h3, .service p { background-color: transparent; margin: 0; padding: 5px 10px; border-radius: 0; position: relative; z-index: 2; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+
+    /* --- INICIO: Ajustes Servicios con Hover (Opción B) --- */
+    .service {
+      position: relative; background-size: cover; background-position: center;
+      border-radius: 10px; overflow: hidden; padding: 20px; text-align: center;
+      height: 300px; display: flex; flex-direction: column; justify-content: flex-end;
+      background-repeat: no-repeat; color: white;
+    }
+    .service::before { /* Degradado base */
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
+      border-radius: 10px; z-index: 1;
+      /* No necesita transición aquí si solo cambiamos el texto */
+    }
+    .service h3, .service p { /* Estilos base del texto */
+      background-color: transparent; margin: 0; padding: 5px 10px;
+      position: relative; z-index: 2;
+      color: white; /* Color base */
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* Sombra base */
+      transition: color 0.3s ease, text-shadow 0.3s ease; /* Transición suave */
+    }
+    .service:hover h3, .service:hover p { /* Estilos del texto en hover */
+        color: #fff; /* Blanco brillante */
+        text-shadow: 1px 1px 1px rgba(0,0,0,1); /* Sombra más nítida */
+    }
+    /* --- FIN: Ajustes Servicios con Hover --- */
+
     .carousel { position: relative; overflow: hidden; max-width: 600px; margin: 40px auto; border-radius: 10px; }
     .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
     .carousel-track img { width: 100%; flex-shrink: 0; }
@@ -120,43 +131,17 @@
     .fade-in { opacity: 0; transition: opacity 2s ease; }
     .fade-in.visible { opacity: 1; }
 
-    /* --- Estilos específicos para pantallas grandes (Desktop) --- */
     @media (min-width: 992px) {
       header {
-        min-height: 85vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 0 20px;
+        min-height: 85vh; display: flex; flex-direction: column;
+        justify-content: center; align-items: center; padding: 0 20px;
       }
-      header::before {
-          background-position: center 35%; /* El valor que te funcionó */
-      }
-      .header-logo {
-          max-width: 350px;
-          width: auto;
-          margin-bottom: 2.5em;
-      }
-      .header-subtitle {
-          opacity: 0;
-          animation: fadeInRise 1.2s ease-out 0.3s forwards;
-          margin-bottom: 1.5em;
-      }
-      header nav {
-         margin-top: 30px;
-         margin-bottom: 20px;
-      }
-
-      /* AJUSTE: Sobrescribir tamaño y posición del logo pulsante para desktop */
-      #pulsating-logo {
-          width: 150px; /* Tamaño para desktop */
-          top: 20px;   /* Más espacio en desktop */
-          left: 20px;
-      }
+      header::before { background-position: center 35%; }
+      .header-logo { max-width: 350px; width: auto; margin-bottom: 2.5em; }
+      .header-subtitle { opacity: 0; animation: fadeInRise 1.2s ease-out 0.3s forwards; margin-bottom: 1.5em; }
+      header nav { margin-top: 30px; margin-bottom: 20px; }
+      #pulsating-logo { width: 150px; top: 20px; left: 20px; }
     }
-    /* --- FIN: Estilos específicos para pantallas grandes (Desktop) --- */
-
   </style>
 </head>
 <body>
