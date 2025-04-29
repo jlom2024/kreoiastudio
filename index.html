@@ -17,37 +17,27 @@
   <title>KREO IA Studio</title>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
-
-    /* --- HEADER BASE --- */
     header {
-      /* Estilos base (móvil primero) */
       text-align: center;
-      padding: 100px 20px; /* Padding para móvil */
-      position: relative; /* Necesario para el ::before absoluto */
-      overflow: hidden; /* Evita que el ::before se salga al inclinar */
-      /* background: url('images/fondo-soñado.jpg') center/cover no-repeat; */ /* <-- Eliminado de aquí */
+      padding: 100px 20px;
+      position: relative;
+      overflow: hidden;
     }
-
-    /* --- INICIO: Pseudo-elemento para fondo 3D --- */
     header::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       background: url('images/fondo-soñado.jpg') center/cover no-repeat;
-      z-index: -1; /* Detrás del contenido */
-      transition: transform 0.1s linear; /* Transición rápida para el tilt */
-      /* Usaremos variables CSS para aplicar el transform desde JS */
+      z-index: -1;
+      transition: transform 0.1s linear;
       transform: perspective(1000px) rotateX(var(--header-tilt-x, 0deg)) rotateY(var(--header-tilt-y, 0deg));
-      will-change: transform; /* Hint de rendimiento */
+      will-change: transform;
     }
-    /* --- FIN: Pseudo-elemento para fondo 3D --- */
-
-
     header h1 {
        font-size: 1rem;
        line-height: 1;
        margin-bottom: 0;
-       position: relative; /* Asegurar que está sobre ::before */
+       position: relative;
        z-index: 1;
     }
     .header-logo {
@@ -55,8 +45,8 @@
       width: 70%;
       height: auto;
       display: block;
-      margin: 0 auto 1em auto;
-      position: relative; /* Asegurar que está sobre ::before */
+      margin: 0 auto 1em auto; /* Margen inferior base */
+      position: relative;
       z-index: 1;
     }
     .header-subtitle {
@@ -65,28 +55,23 @@
         margin: 0 auto;
         opacity: 1;
         transition: opacity 0.5s;
-        position: relative; /* Asegurar que está sobre ::before */
+        position: relative;
         z-index: 1;
     }
-
     nav {
        text-align: center;
-       margin: 40px 0;
+       margin: 40px 0; /* Margen base móvil */
        display: flex;
        flex-wrap: wrap;
        justify-content: center;
        gap: 20px;
-       position: relative; /* Asegurar que está sobre ::before */
+       position: relative;
        z-index: 1;
     }
     nav a { color: #ff6600; text-decoration: none; font-weight: bold; font-size: 1.2em; padding: 10px; transition: transform 0.3s ease; }
     nav a:hover { animation: bounce 0.6s; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-    @keyframes fadeInRise {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeInRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
     /* --- RESTO DE ESTILOS (Sections, Services, Carousel, Contact, Footer, Animations) --- */
     section { max-width: 1000px; margin: auto; padding: 40px 20px; }
@@ -114,31 +99,31 @@
     .fade-in { opacity: 0; transition: opacity 2s ease; }
     .fade-in.visible { opacity: 1; }
 
-
     /* --- Estilos específicos para pantallas grandes (Desktop) --- */
     @media (min-width: 992px) {
       header {
         min-height: 85vh;
         display: flex;
         flex-direction: column;
-        /* justify-content: center; */ /* Quitamos centrado vertical */
         align-items: center;
         padding: 0 20px;
-        padding-top: 8vh; /* Espacio superior */
-        /* perspective: 1000px; */ /* Perspectiva aplicada en ::before transform */
+        /* Ajuste clave: Reducir padding-top para subir TODO el bloque */
+        padding-top: 5vh; /* Antes 8vh. Prueba 4vh, 6vh... */
       }
       .header-logo {
           max-width: 350px;
           width: auto;
-          margin-bottom: 1em;
+          /* Ajuste clave: Aumentar margen inferior para bajar subtítulo y nav */
+          margin-bottom: 3.5em; /* Antes 1em. Prueba 3em, 4em... */
       }
       .header-subtitle {
           opacity: 0;
           animation: fadeInRise 1.2s ease-out 0.3s forwards;
       }
       header nav {
-         margin-top: 40px;
-         margin-bottom: 20px;
+         /* Ajuste clave: Aumentar margen superior para bajar MÁS la nav */
+         margin-top: 80px; /* Antes 40px. Prueba 70px, 100px... */
+         margin-bottom: 20px; /* Mantener o ajustar espacio inferior */
       }
     }
     /* --- FIN: Estilos específicos para pantallas grandes (Desktop) --- */
@@ -147,7 +132,7 @@
 </head>
 <body>
 
-<header> <!-- El listener JS se añadirá a este elemento -->
+<header>
   <h1>
     <img src="LogoR.png" alt="KREO IA Studio Logo" class="header-logo">
   </h1>
@@ -209,138 +194,56 @@
 </footer>
 
 <script>
+// Script JS (sin cambios)
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- INICIO: Lógica para Efecto 3D Header ---
   const header = document.querySelector('header');
   if (header) {
-    const maxTilt = 8; // Máximo ángulo de inclinación en grados (ajusta para más/menos efecto)
-
+    const maxTilt = 8;
     header.addEventListener('mousemove', (e) => {
       const rect = header.getBoundingClientRect();
-      const x = e.clientX - rect.left; // Coordenada X relativa al header
-      const y = e.clientY - rect.top;  // Coordenada Y relativa al header
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
       const width = header.offsetWidth;
       const height = header.offsetHeight;
-
-      // Normalizar posición del mouse (-0.5 a 0.5)
       const normX = (x / width) - 0.5;
       const normY = (y / height) - 0.5;
-
-      // Calcular rotación (invertir Y para que al subir el mouse se incline "hacia atrás")
       const tiltY = normX * maxTilt;
       const tiltX = -normY * maxTilt;
-
-      // Aplicar usando variables CSS
       header.style.setProperty('--header-tilt-x', `${tiltX}deg`);
       header.style.setProperty('--header-tilt-y', `${tiltY}deg`);
     });
-
     header.addEventListener('mouseleave', () => {
-      // Resetear la inclinación al salir
       header.style.setProperty('--header-tilt-x', '0deg');
       header.style.setProperty('--header-tilt-y', '0deg');
     });
   }
-  // --- FIN: Lógica para Efecto 3D Header ---
 
-
-  // --- Lógica del Carrusel con Controles (Sin cambios) ---
   const carousel = document.querySelector('.carousel');
   const track = carousel?.querySelector('.carousel-track');
   const prevButton = carousel?.querySelector('.carousel-button.prev');
   const nextButton = carousel?.querySelector('.carousel-button.next');
-
   if (track && prevButton && nextButton) {
     const slides = Array.from(track.children);
     let slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
     let currentIndex = 0;
     let autoPlayInterval = null;
     const autoPlayDelay = 3000;
-
-    function moveToSlide(index) {
-      if (slideWidth <= 0 || slides.length === 0) return;
-      const newIndex = Math.max(0, Math.min(index, slides.length - 1));
-      track.style.transform = 'translateX(-' + slideWidth * newIndex + 'px)';
-      currentIndex = newIndex;
-    }
-
-    function updateSlideWidth() {
-      if (slides.length > 0) {
-        const newSlideWidth = slides[0].getBoundingClientRect().width;
-        if (newSlideWidth > 0) {
-          slideWidth = newSlideWidth;
-          track.style.transition = 'none';
-          moveToSlide(currentIndex);
-          void track.offsetWidth;
-          track.style.transition = 'transform 0.5s ease-in-out';
-        }
-      }
-    }
-
-    function startAutoPlay() {
-      stopAutoPlay();
-      if (slides.length > 1) {
-          autoPlayInterval = setInterval(showNextSlide, autoPlayDelay);
-      }
-    }
-
-    function stopAutoPlay() {
-      clearInterval(autoPlayInterval);
-      autoPlayInterval = null;
-    }
-
-    function showPrevSlide() {
-      stopAutoPlay();
-      const prevIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
-      moveToSlide(prevIndex);
-      startAutoPlay();
-    }
-
-    function showNextSlide() {
-      stopAutoPlay();
-      const nextIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1;
-      moveToSlide(nextIndex);
-      startAutoPlay();
-    }
-
-
-    if (slides.length > 1) {
-        carousel.classList.add('has-controls');
-        prevButton.addEventListener('click', showPrevSlide);
-        nextButton.addEventListener('click', showNextSlide);
-        carousel.addEventListener('mouseenter', stopAutoPlay);
-        carousel.addEventListener('mouseleave', startAutoPlay);
-        startAutoPlay();
-    } else {
-        carousel.classList.remove('has-controls');
-    }
-
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(updateSlideWidth, 150);
-    });
-
-     if (document.readyState === 'complete') {
-        updateSlideWidth();
-    } else {
-        window.addEventListener('load', updateSlideWidth);
-    }
-
+    function moveToSlide(index) { if (slideWidth <= 0 || slides.length === 0) return; const newIndex = Math.max(0, Math.min(index, slides.length - 1)); track.style.transform = 'translateX(-' + slideWidth * newIndex + 'px)'; currentIndex = newIndex; }
+    function updateSlideWidth() { if (slides.length > 0) { const newSlideWidth = slides[0].getBoundingClientRect().width; if (newSlideWidth > 0) { slideWidth = newSlideWidth; track.style.transition = 'none'; moveToSlide(currentIndex); void track.offsetWidth; track.style.transition = 'transform 0.5s ease-in-out'; } } }
+    function startAutoPlay() { stopAutoPlay(); if (slides.length > 1) { autoPlayInterval = setInterval(showNextSlide, autoPlayDelay); } }
+    function stopAutoPlay() { clearInterval(autoPlayInterval); autoPlayInterval = null; }
+    function showPrevSlide() { stopAutoPlay(); const prevIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1; moveToSlide(prevIndex); startAutoPlay(); }
+    function showNextSlide() { stopAutoPlay(); const nextIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1; moveToSlide(nextIndex); startAutoPlay(); }
+    if (slides.length > 1) { carousel.classList.add('has-controls'); prevButton.addEventListener('click', showPrevSlide); nextButton.addEventListener('click', showNextSlide); carousel.addEventListener('mouseenter', stopAutoPlay); carousel.addEventListener('mouseleave', startAutoPlay); startAutoPlay(); } else { carousel.classList.remove('has-controls'); }
+    let resizeTimer; window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(updateSlideWidth, 150); });
+    if (document.readyState === 'complete') { updateSlideWidth(); } else { window.addEventListener('load', updateSlideWidth); }
   }
 
-  // --- Lógica de Animaciones Reveal/FadeIn (Sin cambios) ---
   const revealElements = document.querySelectorAll('.reveal');
   const fadeInElements = document.querySelectorAll('.fade-in');
   const observerOptions = { root: null, threshold: 0.1 };
-  const observerCallback = (entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  };
+  const observerCallback = (entries, observer) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } }); };
   const observer = new IntersectionObserver(observerCallback, observerOptions);
   revealElements.forEach(el => observer.observe(el));
   fadeInElements.forEach(el => observer.observe(el));
