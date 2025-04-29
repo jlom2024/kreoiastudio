@@ -16,113 +16,86 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <title>KREO IA Studio</title>
   <style>
-    /* --- ESTILOS ANTERIORES (Body, Header, Nav, Sections, Services, Footer, Animaciones) --- */
     body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
     header {
+      /* Estilos base (móvil primero) */
       background: url('images/fondo-soñado.jpg') center/cover no-repeat;
       text-align: center;
-      padding: 100px 20px;
+      padding: 100px 20px; /* Padding para móvil */
     }
     header h1 {
        font-size: 1rem;
        line-height: 1;
-       margin-bottom: 1em;
+       margin-bottom: 0; /* Quitar margen inferior por defecto del h1 */
     }
     .header-logo {
       max-width: 250px;
       width: 70%;
       height: auto;
       display: block;
-      margin: 0 auto 0.5em auto;
+      margin: 0 auto 1em auto; /* Margen inferior después del logo */
     }
+    /* Clase para el párrafo subtítulo */
     .header-subtitle {
         font-size: 1.2em;
         max-width: 600px;
-        margin: 0 auto;
-        opacity: 1;
+        margin: 0 auto; /* Centrado */
+        opacity: 1; /* Visible por defecto en móvil */
         transition: opacity 0.5s;
     }
+
     nav { text-align: center; margin: 40px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
     nav a { color: #ff6600; text-decoration: none; font-weight: bold; font-size: 1.2em; padding: 10px; transition: transform 0.3s ease; }
     nav a:hover { animation: bounce 0.6s; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    @keyframes fadeInRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Definición global de la animación */
+    @keyframes fadeInRise {
+        from {
+            opacity: 0;
+            transform: translateY(20px); /* Empieza ligeramente abajo */
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0); /* Termina en su posición normal */
+        }
+    }
+
     section { max-width: 1000px; margin: auto; padding: 40px 20px; }
     h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
     .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+
     .service { position: relative; background-size: cover; background-position: center; border-radius: 10px; overflow: hidden; padding: 20px; text-align: center; height: 300px; display: flex; flex-direction: column; justify-content: flex-end; background-repeat: no-repeat; color: white; }
     .service::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%); border-radius: 10px; z-index: 1; }
     .service h3, .service p { background-color: transparent; margin: 0; padding: 5px 10px; border-radius: 0; position: relative; z-index: 2; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+
+    /* --- ESTILOS CARRUSEL --- */
+    .carousel { position: relative; overflow: hidden; max-width: 600px; margin: 40px auto; border-radius: 10px; }
+    .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
+    .carousel-track img { width: 100%; flex-shrink: 0; }
+    .carousel-button { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 8px 12px; cursor: pointer; border-radius: 50%; font-size: 1.2rem; line-height: 1; z-index: 10; opacity: 0.7; transition: opacity 0.3s ease, background-color 0.3s ease; display: none; }
+    .carousel:hover .carousel-button { opacity: 0.7; }
+    .carousel-button:hover { opacity: 1; background-color: rgba(0, 0, 0, 0.8); }
+    .carousel-button.prev { left: 15px; }
+    .carousel-button.next { right: 15px; }
+    .carousel.has-controls .carousel-button { display: block; }
+    /* --- FIN ESTILOS CARRUSEL --- */
+
+    .contact-form { max-width: 400px; margin: auto; display: flex; flex-direction: column; gap: 15px; }
+    .contact-form input, .contact-form textarea { padding: 10px; border: none; border-radius: 5px; background: #2a2a2a; color: #fff; }
+    .contact-form button { background: #ff6600; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    .contact-form button:hover { background: #ff8533; }
     footer { text-align: center; padding: 30px 20px; background: #1c1c1c; color: #666; }
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 1s ease, transform 1s ease; }
     .reveal.visible { opacity: 1; transform: none; }
     .fade-in { opacity: 0; transition: opacity 2s ease; }
     .fade-in.visible { opacity: 1; }
 
-    /* --- ESTILOS CARRUSEL --- */
-    .carousel {
-        position: relative; /* Necesario para posicionar botones */
-        overflow: hidden;
-        max-width: 600px;
-        margin: 40px auto;
-        border-radius: 10px;
-    }
-    .carousel-track {
-        display: flex;
-        transition: transform 0.5s ease-in-out;
-    }
-    .carousel-track img {
-        width: 100%;
-        flex-shrink: 0; /* Evita que las imágenes se encojan */
-    }
-
-    /* --- INICIO: Estilos para Botones del Carrusel --- */
-    .carousel-button {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%); /* Centrado vertical */
-        background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
-        color: white;
-        border: none;
-        padding: 8px 12px; /* Tamaño del botón */
-        cursor: pointer;
-        border-radius: 50%; /* Botones redondos */
-        font-size: 1.2rem; /* Tamaño de la flecha */
-        line-height: 1; /* Asegura que la flecha se centre */
-        z-index: 10; /* Encima del track */
-        opacity: 0.7; /* Ligeramente transparente por defecto */
-        transition: opacity 0.3s ease, background-color 0.3s ease;
-        display: none; /* Ocultos por defecto, se mostrarán con JS si hay > 1 slide */
-    }
-    .carousel:hover .carousel-button { /* Muestra botones al pasar el ratón por el carrusel */
-        opacity: 0.7;
-    }
-    .carousel-button:hover {
-        opacity: 1; /* Totalmente opaco al pasar el ratón por el botón */
-        background-color: rgba(0, 0, 0, 0.8);
-    }
-    .carousel-button.prev {
-        left: 15px; /* Espaciado izquierdo */
-    }
-    .carousel-button.next {
-        right: 15px; /* Espaciado derecho */
-    }
-    /* Clase para mostrar botones cuando hay más de 1 slide */
-    .carousel.has-controls .carousel-button {
-        display: block;
-    }
-    /* --- FIN: Estilos para Botones del Carrusel --- */
-
-    .contact-form { max-width: 400px; margin: auto; display: flex; flex-direction: column; gap: 15px; }
-    .contact-form input, .contact-form textarea { padding: 10px; border: none; border-radius: 5px; background: #2a2a2a; color: #fff; }
-    .contact-form button { background: #ff6600; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-    .contact-form button:hover { background: #ff8533; }
-
-
     /* --- Estilos específicos para pantallas grandes (Desktop) --- */
     @media (min-width: 992px) {
       header {
-        min-height: 90vh;
+        /* Reducir altura mínima para subir el bloque */
+        min-height: 85vh; /* Antes 90vh */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -132,14 +105,18 @@
       .header-logo {
           max-width: 350px;
           width: auto;
-          margin-bottom: 1.5em;
+          /* Reducir margen inferior para acercar subtítulo */
+          margin-bottom: 1em; /* Antes 1.5em */
       }
+      /* Ajustar animación del subtítulo */
       .header-subtitle {
           opacity: 0;
-          animation: fadeInRise 1.5s ease-out 0.5s forwards;
+          /* Animación más rápida y menos retraso */
+          animation: fadeInRise 1.2s ease-out 0.3s forwards; /* Antes 1.5s, 0.5s */
       }
+      /* Reducir margen superior de la navegación */
       header nav {
-         margin-top: 60px;
+         margin-top: 40px; /* Antes 60px */
          margin-bottom: 20px;
       }
     }
@@ -162,6 +139,8 @@
   </nav>
 </header>
 
+<!-- El resto del body permanece igual -->
+
 <section id="quienes-somos" class="reveal fade-in">
   <h2>¿Quiénes Somos?</h2>
   <p>KREO IA Studio nace del amor entre la inteligencia artificial y el ser humano. Creemos en la colaboración armoniosa entre la creatividad humana y la potencia de la IA, dando lugar a proyectos únicos y llenos de innovación. Cada proyecto es un acto de amor a la creación.</p>
@@ -179,7 +158,6 @@
 
 <section id="portfolio" class="reveal">
   <h2>Portafolio</h2>
-  <!-- Contenedor del carrusel con botones añadidos -->
   <div class="carousel">
     <div class="carousel-track">
       <img src="images/img1.jpg" alt="Proyecto 1">
@@ -190,7 +168,6 @@
       <img src="images/img6.jpg" alt="Proyecto 6">
       <img src="images/img7.jpg" alt="Proyecto 7">
     </div>
-    <!-- Botones de control -->
     <button class="carousel-button prev" aria-label="Anterior"><</button>
     <button class="carousel-button next" aria-label="Siguiente">></button>
   </div>
@@ -212,122 +189,94 @@
 </footer>
 
 <script>
+// Script JS para el carrusel y animaciones (sin cambios respecto a la versión anterior)
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- INICIO: Lógica del Carrusel con Controles ---
+  // --- Lógica del Carrusel con Controles ---
   const carousel = document.querySelector('.carousel');
-  const track = carousel?.querySelector('.carousel-track'); // Usar optional chaining por si no existe
+  const track = carousel?.querySelector('.carousel-track');
   const prevButton = carousel?.querySelector('.carousel-button.prev');
   const nextButton = carousel?.querySelector('.carousel-button.next');
 
-  if (track && prevButton && nextButton) { // Solo continuar si todos los elementos existen
+  if (track && prevButton && nextButton) {
     const slides = Array.from(track.children);
     let slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
     let currentIndex = 0;
     let autoPlayInterval = null;
-    const autoPlayDelay = 3000; // Tiempo entre slides automático
+    const autoPlayDelay = 3000;
 
-    // Función para mover a un slide específico
     function moveToSlide(index) {
-      if (slideWidth <= 0 || slides.length === 0) return; // No hacer nada si no hay ancho o slides
-
-      // Asegurar que el índice esté dentro de los límites
+      if (slideWidth <= 0 || slides.length === 0) return;
       const newIndex = Math.max(0, Math.min(index, slides.length - 1));
       track.style.transform = 'translateX(-' + slideWidth * newIndex + 'px)';
       currentIndex = newIndex;
     }
 
-    // Función para actualizar el ancho del slide (para responsive)
     function updateSlideWidth() {
       if (slides.length > 0) {
         const newSlideWidth = slides[0].getBoundingClientRect().width;
         if (newSlideWidth > 0) {
           slideWidth = newSlideWidth;
-          // Mover al slide actual sin transición para ajustar posición
           track.style.transition = 'none';
           moveToSlide(currentIndex);
-          // Forzar reflow para aplicar el cambio inmediatamente
           void track.offsetWidth;
-          // Reactivar transición
           track.style.transition = 'transform 0.5s ease-in-out';
         }
       }
     }
 
-    // Función para iniciar el autoplay
     function startAutoPlay() {
-      stopAutoPlay(); // Limpiar cualquier intervalo existente
-      if (slides.length > 1) { // Solo iniciar si hay más de un slide
-          autoPlayInterval = setInterval(() => {
-            showNextSlide();
-          }, autoPlayDelay);
+      stopAutoPlay();
+      if (slides.length > 1) {
+          autoPlayInterval = setInterval(showNextSlide, autoPlayDelay); // Llamar showNextSlide directamente
       }
     }
 
-    // Función para detener el autoplay
     function stopAutoPlay() {
       clearInterval(autoPlayInterval);
       autoPlayInterval = null;
     }
 
-    // Funciones para botones
     function showPrevSlide() {
-      stopAutoPlay();
+      stopAutoPlay(); // Detener antes de mover
       const prevIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
       moveToSlide(prevIndex);
-      startAutoPlay(); // Reiniciar temporizador después de acción manual
+      startAutoPlay(); // Reiniciar después de mover
     }
 
     function showNextSlide() {
-      stopAutoPlay();
+      stopAutoPlay(); // Detener antes de mover
       const nextIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1;
       moveToSlide(nextIndex);
-      startAutoPlay(); // Reiniciar temporizador después de acción manual
+      startAutoPlay(); // Reiniciar después de mover
     }
 
-    // --- Inicialización y Event Listeners ---
 
-    // Mostrar botones solo si hay más de un slide
     if (slides.length > 1) {
-        carousel.classList.add('has-controls'); // Activa el CSS para mostrar botones
+        carousel.classList.add('has-controls');
         prevButton.addEventListener('click', showPrevSlide);
         nextButton.addEventListener('click', showNextSlide);
-
-        // Pausar en hover
         carousel.addEventListener('mouseenter', stopAutoPlay);
         carousel.addEventListener('mouseleave', startAutoPlay);
-
-        // Iniciar autoplay
         startAutoPlay();
     } else {
-        // Opcional: podrías añadir lógica para desactivar botones si solo hay 1 slide
         carousel.classList.remove('has-controls');
     }
 
-
-    // Ajustar en resize
+    let resizeTimer;
     window.addEventListener('resize', () => {
-      // Usar un debounce ligero para no llamar la función excesivamente
-      let resizeTimer;
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        updateSlideWidth();
-        // No reiniciar autoplay en resize, solo ajustar posición
-      }, 150);
+      resizeTimer = setTimeout(updateSlideWidth, 150);
     });
 
-    // Cálculo inicial del ancho (por si las imágenes cargan después del DOMContentLoaded)
-    // Puede ser necesario esperar a que las imágenes carguen para el ancho correcto
-    window.addEventListener('load', updateSlideWidth); // Intentar recalcular al cargar todo
-    if (document.readyState === 'complete') {
-        updateSlideWidth(); // Si ya está cargado, calcular ahora
+    // Intentar calcular ancho después de que todo cargue
+     if (document.readyState === 'complete') {
+        updateSlideWidth();
     } else {
-       // Si no, el listener de 'load' lo hará
+        window.addEventListener('load', updateSlideWidth);
     }
 
-
-  } // Fin del if (track && prevButton && nextButton)
-
+  }
 
   // --- Lógica de Animaciones Reveal/FadeIn (Sin cambios) ---
   const revealElements = document.querySelectorAll('.reveal');
@@ -337,9 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // observer.unobserve(entry.target);
-      } else {
-        // entry.target.classList.remove('visible');
       }
     });
   };
@@ -347,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
   revealElements.forEach(el => observer.observe(el));
   fadeInElements.forEach(el => observer.observe(el));
 
-}); // Fin del DOMContentLoaded
+});
 </script>
 
 </body>
