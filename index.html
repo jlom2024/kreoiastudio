@@ -18,10 +18,10 @@
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
     header {
+      /* Estilos base (móvil primero) */
       background: url('images/fondo-soñado.jpg') center/cover no-repeat;
-      /* background-attachment: fixed; */
       text-align: center;
-      padding: 100px 20px;
+      padding: 100px 20px; /* Padding para móvil */
     }
     header h1 { font-size: 3em; margin-bottom: 0.5em; }
     header p { font-size: 1.2em; max-width: 600px; margin: 0 auto; }
@@ -81,6 +81,31 @@
     .reveal.visible { opacity: 1; transform: none; }
     .fade-in { opacity: 0; transition: opacity 2s ease; }
     .fade-in.visible { opacity: 1; }
+
+    /* --- INICIO: Estilos específicos para pantallas grandes (Desktop) --- */
+    @media (min-width: 992px) { /* Aplica esto si la pantalla mide 992px o más */
+      header {
+        /* Hacer el header mucho más alto */
+        min-height: 90vh; /* Ocupa el 90% de la altura de la ventana. Prueba 80vh, 95vh o 100vh si prefieres */
+
+        /* Usar Flexbox para centrar el contenido verticalmente */
+        display: flex;
+        flex-direction: column; /* Apilar elementos (h1, p, nav) verticalmente */
+        justify-content: center; /* Centrar verticalmente */
+        align-items: center; /* Centrar horizontalmente */
+
+        /* Ajustar padding: eliminar el vertical, mantener el horizontal */
+        padding: 0 20px;
+      }
+
+      /* Opcional: Añadir un poco de margen inferior a la navegación si se ve muy pegada */
+      header nav {
+         /* Puedes ajustar el margin-top/bottom aquí si es necesario */
+         /* margin-bottom: 30px; */
+      }
+    }
+    /* --- FIN: Estilos específicos para pantallas grandes (Desktop) --- */
+
   </style>
 </head>
 <body>
@@ -129,14 +154,12 @@
 
 <section id="contacto" class="reveal">
   <h2>Contacto</h2>
-  <!-- INICIO: Formulario modificado para Formspree -->
   <form class="contact-form" action="https://formspree.io/f/mkgronyd" method="POST">
     <input type="text" name="name" placeholder="Tu Nombre" required>
-    <input type="email" name="email" placeholder="Tu Correo" required> <!-- Formspree usa esto como "Reply-to" -->
+    <input type="email" name="email" placeholder="Tu Correo" required>
     <textarea name="message" rows="5" placeholder="Tu Mensaje" required></textarea>
     <button type="submit">Enviar Mensaje</button>
   </form>
-  <!-- FIN: Formulario modificado para Formspree -->
 </section>
 
 <footer>
@@ -150,51 +173,65 @@ document.addEventListener('DOMContentLoaded', () => {
   if (track && track.children.length > 1) {
     let currentIndex = 0;
     const slides = Array.from(track.children);
-    let slideWidth = slides[0].getBoundingClientRect().width;
+    let slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0; // Initial width
 
     function updateSlideWidth() {
-        slideWidth = slides[0].getBoundingClientRect().width;
-        if (slideWidth > 0) {
-             track.style.transition = 'none';
-             track.style.transform = 'translateX(-' + slideWidth * currentIndex + 'px)';
-             void track.offsetWidth;
-             track.style.transition = 'transform 0.5s ease-in-out';
+        // Only update if there are slides
+        if (slides.length > 0) {
+            const newSlideWidth = slides[0].getBoundingClientRect().width;
+            if (newSlideWidth > 0) { // Check if width is valid
+                slideWidth = newSlideWidth;
+                track.style.transition = 'none'; // Disable transition during resize adjustment
+                track.style.transform = 'translateX(-' + slideWidth * currentIndex + 'px)';
+                void track.offsetWidth; // Force reflow/repaint
+                track.style.transition = 'transform 0.5s ease-in-out'; // Re-enable transition
+            }
         }
     }
 
+
     function moveToSlide(index) {
-      if (slideWidth > 0) {
-          track.style.transform = 'translateX(-' + slideWidth * index + 'px)';
-          currentIndex = index;
+      if (slideWidth > 0 && slides.length > 0) {
+          // Clamp index to valid range
+          const newIndex = Math.max(0, Math.min(index, slides.length - 1));
+          track.style.transform = 'translateX(-' + slideWidth * newIndex + 'px)';
+          currentIndex = newIndex;
       }
     }
 
     let autoPlayInterval = setInterval(() => {
-      let nextIndex = currentIndex + 1;
-      if (nextIndex >= slides.length) {
-        nextIndex = 0;
+      if (slides.length > 0) { // Only advance if there are slides
+        let nextIndex = currentIndex + 1;
+        if (nextIndex >= slides.length) {
+          nextIndex = 0;
+        }
+        moveToSlide(nextIndex);
       }
-      moveToSlide(nextIndex);
     }, 3000);
 
     const carousel = document.querySelector('.carousel');
     if(carousel) {
         carousel.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
         carousel.addEventListener('mouseleave', () => {
-             autoPlayInterval = setInterval(() => {
-                let nextIndex = currentIndex + 1;
-                if (nextIndex >= slides.length) {
-                    nextIndex = 0;
-                }
-                moveToSlide(nextIndex);
-            }, 3000);
+             // Restart interval only if there are slides
+             if (slides.length > 0) {
+                 autoPlayInterval = setInterval(() => {
+                    let nextIndex = currentIndex + 1;
+                    if (nextIndex >= slides.length) {
+                        nextIndex = 0;
+                    }
+                    moveToSlide(nextIndex);
+                }, 3000);
+             }
         });
     }
 
      window.addEventListener('resize', () => {
-         setTimeout(updateSlideWidth, 100);
+         // Use timeout to debounce resize events slightly
+         setTimeout(updateSlideWidth, 150);
      });
 
+     // Initial calculation needed after DOM is ready
      updateSlideWidth();
   }
 
@@ -205,9 +242,9 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // observer.unobserve(entry.target);
+        // observer.unobserve(entry.target); // Uncomment for performance
       } else {
-        // entry.target.classList.remove('visible');
+        // entry.target.classList.remove('visible'); // Uncomment to re-animate
       }
     });
   };
