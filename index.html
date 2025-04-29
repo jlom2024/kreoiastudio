@@ -61,48 +61,47 @@
     .carousel-button.next { right: 15px; }
     .carousel.has-controls .carousel-button { display: block; }
 
-    /* --- INICIO: Estilos para Logo Marquee --- */
+    /* --- Estilos para Logo Marquee --- */
     #logo-strip {
-        padding: 30px 0; /* Espacio vertical */
-        background-color: #111; /* Color de fondo para la franja (opcional) */
-        overflow: hidden; /* Oculta el desbordamiento */
+        /* AJUSTE: Reducir padding vertical */
+        padding: 15px 0;
+        background-color: #111;
+        overflow: hidden;
         width: 100%;
         box-sizing: border-box;
     }
     .logo-marquee-container {
         width: 100%;
         overflow: hidden;
-        /* Añadir máscara con degradado para suavizar bordes (opcional) */
         -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     }
     .logo-marquee-track {
         display: flex;
-        align-items: center; /* Centra logos verticalmente si tienen alturas distintas */
-        width: fit-content; /* Ancho basado en contenido */
-        animation: scrollLogos 40s linear infinite; /* Ajusta duración para velocidad */
+        align-items: center;
+        width: fit-content;
+        animation: scrollLogos 40s linear infinite;
         will-change: transform;
     }
     #logo-strip:hover .logo-marquee-track {
-        animation-play-state: paused; /* Pausar al pasar el ratón por la franja */
+        animation-play-state: paused;
     }
     .partner-logo {
-        height: 40px; /* Altura fija para los logos (ajústala) */
-        width: auto; /* Ancho automático para mantener proporción */
-        margin: 0 40px; /* Espacio horizontal entre logos (ajústalo) */
-        flex-shrink: 0; /* Evita que los logos se encojan */
-        opacity: 0.7; /* Hacerlos un poco tenues por defecto */
-        filter: grayscale(80%); /* Opcional: blanco y negro */
+        /* AJUSTE: Aumentar altura base (móvil) */
+        height: 80px; /* Antes 40px */
+        width: auto;
+        margin: 0 40px;
+        flex-shrink: 0;
+        opacity: 0.7;
+        filter: grayscale(80%);
         transition: opacity 0.3s ease, filter 0.3s ease;
     }
     .partner-logo:hover {
-        opacity: 1; /* Opacidad completa al pasar el ratón */
-        filter: grayscale(0%); /* Color original al pasar el ratón */
+        opacity: 1;
+        filter: grayscale(0%);
     }
     @keyframes scrollLogos {
         from { transform: translateX(0%); }
-        /* Mover una distancia igual a la mitad del ancho total del track */
-        /* Como duplicamos los logos, movemos el 50% */
         to { transform: translateX(-50%); }
     }
     /* --- FIN: Estilos para Logo Marquee --- */
@@ -125,10 +124,10 @@
       .header-subtitle { opacity: 0; animation: fadeInRise 1.2s ease-out 0.3s forwards; margin-bottom: 1.5em; }
       header nav { margin-top: 30px; margin-bottom: 20px; }
       #pulsating-logo { width: 150px; top: 20px; left: 20px; }
-       /* Ajustar tamaño de logos de partners en desktop si es necesario */
+      /* AJUSTE: Aumentar altura y margen en desktop */
        .partner-logo {
-           height: 50px; /* Un poco más grandes en desktop */
-           margin: 0 50px;
+           height: 100px; /* Antes 50px */
+           margin: 0 60px; /* Más espacio horizontal */
        }
     }
   </style>
@@ -186,37 +185,28 @@
   </div>
 </section>
 
-<!-- ====================================== -->
-<!-- INICIO: Nueva Sección de Logos Partners -->
-<!-- ====================================== -->
+<!-- Sección de Logos Partners -->
 <section id="logo-strip" aria-labelledby="partners-heading">
-    <!-- <h2 id="partners-heading" style="text-align: center; color: #666; margin-bottom: 20px;">Nuestros Partners</h2> --> <!-- Título opcional -->
     <div class="logo-marquee-container">
         <div class="logo-marquee-track">
-            <!-- LISTA DE LOGOS (Añade los tuyos aquí) -->
-            <img src="images/logo-cliente-1.png" alt="Logo Cliente 1" class="partner-logo">
-            <img src="images/logo-cliente-2.png" alt="Logo Cliente 2" class="partner-logo">
-            <img src="images/logo-cliente-3.png" alt="Logo Cliente 3" class="partner-logo">
-            <img src="images/logo-cliente-4.png" alt="Logo Cliente 4" class="partner-logo">
-            <img src="images/logo-cliente-5.png" alt="Logo Cliente 5" class="partner-logo">
-            <img src="images/logo-cliente-6.png" alt="Logo Cliente 6" class="partner-logo">
-            <!-- FIN LISTA -->
+            <!-- LISTA DE LOGOS REALES (REEMPLAZAR CON LOS TUYOS) -->
+            <img src="logo-cliente-1.png" alt="Logo 1" class="partner-logo">
+            <img src="logo-cliente-2.png" alt="Logo 2" class="partner-logo">
+            <img src="logo-cliente-3.png" alt="Logo 3" class="partner-logo">
+            <img src="logo-cliente-4.png" alt="Logo 4" class="partner-logo">
+            <img src="logo-cliente-5.png" alt="Logo 5" class="partner-logo">
+            <img src="logo-cliente-6.png" alt="Logo 6" class="partner-logo"><!-- Asumo que este es el 6to logo de la imagen -->
 
-            <!-- COPIA EXACTA DE LA LISTA DE LOGOS (¡Necesario para bucle infinito!) -->
-            <img src="images/logo-cliente-1.png" alt="Logo Cliente 1" class="partner-logo">
-            <img src="images/logo-cliente-2.png" alt="Logo Cliente 2" class="partner-logo">
-            <img src="images/logo-cliente-3.png" alt="Logo Cliente 3" class="partner-logo">
-            <img src="images/logo-cliente-4.png" alt="Logo Cliente 4" class="partner-logo">
-            <img src="images/logo-cliente-5.png" alt="Logo Cliente 5" class="partner-logo">
-            <img src="images/logo-cliente-6.png" alt="Logo Cliente 6" class="partner-logo">
-            <!-- FIN COPIA -->
+            <!-- COPIA EXACTA -->
+            <img src="logo-cliente-1.png" alt="Logo 1" class="partner-logo">
+            <img src="logo-cliente-2.png" alt="Logo 2" class="partner-logo">
+            <img src="logo-cliente-3.png" alt="Logo 3" class="partner-logo">
+            <img src="logo-cliente-4.png" alt="Logo 4" class="partner-logo">
+            <img src="logo-cliente-5.png" alt="Logo 5" class="partner-logo">
+            <img src="logo-cliente-6.png" alt="Logo 6" class="partner-logo">
         </div>
     </div>
 </section>
-<!-- ==================================== -->
-<!-- FIN: Nueva Sección de Logos Partners -->
-<!-- ==================================== -->
-
 
 <section id="contacto" class="reveal">
   <h2>Contacto</h2>
