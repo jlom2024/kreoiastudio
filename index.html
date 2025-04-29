@@ -28,8 +28,7 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      /* Usa la imagen original (que ahora está recortada 16:9) */
-      background: url('images/fondo-soñado.jpg') center center / cover no-repeat;
+      background: url('images/fondo-soñado.jpg') center center / cover no-repeat; /* Base position */
       z-index: -1;
       transition: transform 0.1s linear;
       transform: perspective(1000px) rotateX(var(--header-tilt-x, 0deg)) rotateY(var(--header-tilt-y, 0deg));
@@ -104,17 +103,17 @@
     /* --- Estilos específicos para pantallas grandes (Desktop) --- */
     @media (min-width: 992px) {
       header {
-        min-height: 85vh; /* Puedes volver a 85vh o probar 90vh */
+        min-height: 85vh;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Centrado vertical */
+        justify-content: center;
         align-items: center;
         padding: 0 20px;
       }
-      /* Ajustar posición de la imagen (que ahora es 16:9) */
+      /* Ajustar posición de la imagen recortada */
       header::before {
-          /* background-image: url('images/fondo-sonado-desktop.jpg'); */ /* <-- ELIMINADO */
-          background-position: center 55%; /* Ajusta este % para centrar los rostros */
+          /* AJUSTE CLAVE: Bajar el centro vertical */
+          background-position: center 60%; /* Antes 55%. Prueba 65% si necesita más */
       }
 
       .header-logo {
