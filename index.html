@@ -26,7 +26,7 @@
     header h1 {
        font-size: 1rem;
        line-height: 1;
-       margin-bottom: 0; /* Quitar margen inferior por defecto del h1 */
+       margin-bottom: 0;
     }
     .header-logo {
       max-width: 250px;
@@ -35,12 +35,11 @@
       display: block;
       margin: 0 auto 1em auto; /* Margen inferior después del logo */
     }
-    /* Clase para el párrafo subtítulo */
     .header-subtitle {
         font-size: 1.2em;
         max-width: 600px;
-        margin: 0 auto; /* Centrado */
-        opacity: 1; /* Visible por defecto en móvil */
+        margin: 0 auto;
+        opacity: 1;
         transition: opacity 0.5s;
     }
 
@@ -49,16 +48,9 @@
     nav a:hover { animation: bounce 0.6s; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-    /* Definición global de la animación */
     @keyframes fadeInRise {
-        from {
-            opacity: 0;
-            transform: translateY(20px); /* Empieza ligeramente abajo */
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0); /* Termina en su posición normal */
-        }
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     section { max-width: 1000px; margin: auto; padding: 40px 20px; }
@@ -94,29 +86,25 @@
     /* --- Estilos específicos para pantallas grandes (Desktop) --- */
     @media (min-width: 992px) {
       header {
-        /* Reducir altura mínima para subir el bloque */
-        min-height: 85vh; /* Antes 90vh */
+        min-height: 85vh; /* Mantenemos o ajustamos si es necesario */
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 0 20px;
+        /* justify-content: center; */ /* <-- ELIMINADO para no centrar verticalmente */
+        align-items: center; /* Mantiene centrado horizontal */
+        padding: 0 20px; /* Quitar padding vertical base */
+        padding-top: 8vh; /* <-- AÑADIDO: Empuja el contenido hacia abajo desde el tope. Ajusta este valor (ej: 5vh, 10vh, 15vh) */
       }
       .header-logo {
           max-width: 350px;
           width: auto;
-          /* Reducir margen inferior para acercar subtítulo */
-          margin-bottom: 1em; /* Antes 1.5em */
+          margin-bottom: 1em;
       }
-      /* Ajustar animación del subtítulo */
       .header-subtitle {
           opacity: 0;
-          /* Animación más rápida y menos retraso */
-          animation: fadeInRise 1.2s ease-out 0.3s forwards; /* Antes 1.5s, 0.5s */
+          animation: fadeInRise 1.2s ease-out 0.3s forwards;
       }
-      /* Reducir margen superior de la navegación */
       header nav {
-         margin-top: 40px; /* Antes 60px */
+         margin-top: 40px; /* Mantenemos o ajustamos el espacio con el subtítulo */
          margin-bottom: 20px;
       }
     }
@@ -139,8 +127,7 @@
   </nav>
 </header>
 
-<!-- El resto del body permanece igual -->
-
+<!-- Resto del body -->
 <section id="quienes-somos" class="reveal fade-in">
   <h2>¿Quiénes Somos?</h2>
   <p>KREO IA Studio nace del amor entre la inteligencia artificial y el ser humano. Creemos en la colaboración armoniosa entre la creatividad humana y la potencia de la IA, dando lugar a proyectos únicos y llenos de innovación. Cada proyecto es un acto de amor a la creación.</p>
@@ -189,10 +176,9 @@
 </footer>
 
 <script>
-// Script JS para el carrusel y animaciones (sin cambios respecto a la versión anterior)
+// Script JS (sin cambios)
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- Lógica del Carrusel con Controles ---
   const carousel = document.querySelector('.carousel');
   const track = carousel?.querySelector('.carousel-track');
   const prevButton = carousel?.querySelector('.carousel-button.prev');
@@ -228,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startAutoPlay() {
       stopAutoPlay();
       if (slides.length > 1) {
-          autoPlayInterval = setInterval(showNextSlide, autoPlayDelay); // Llamar showNextSlide directamente
+          autoPlayInterval = setInterval(showNextSlide, autoPlayDelay);
       }
     }
 
@@ -238,17 +224,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showPrevSlide() {
-      stopAutoPlay(); // Detener antes de mover
+      stopAutoPlay();
       const prevIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
       moveToSlide(prevIndex);
-      startAutoPlay(); // Reiniciar después de mover
+      startAutoPlay();
     }
 
     function showNextSlide() {
-      stopAutoPlay(); // Detener antes de mover
+      stopAutoPlay();
       const nextIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1;
       moveToSlide(nextIndex);
-      startAutoPlay(); // Reiniciar después de mover
+      startAutoPlay();
     }
 
 
@@ -269,7 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
       resizeTimer = setTimeout(updateSlideWidth, 150);
     });
 
-    // Intentar calcular ancho después de que todo cargue
      if (document.readyState === 'complete') {
         updateSlideWidth();
     } else {
@@ -278,7 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
-  // --- Lógica de Animaciones Reveal/FadeIn (Sin cambios) ---
   const revealElements = document.querySelectorAll('.reveal');
   const fadeInElements = document.querySelectorAll('.fade-in');
   const observerOptions = { root: null, threshold: 0.1 };
