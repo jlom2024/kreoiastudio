@@ -41,11 +41,11 @@
        z-index: 1;
     }
     .header-logo {
-      max-width: 250px;
+      max-width: 250px; /* Tamaño base para móvil */
       width: 70%;
       height: auto;
       display: block;
-      margin: 0 auto 1em auto; /* Margen inferior base */
+      margin: 0 auto 1em auto; /* Margen inferior base móvil */
       position: relative;
       z-index: 1;
     }
@@ -73,7 +73,7 @@
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     @keyframes fadeInRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* --- RESTO DE ESTILOS (Sections, Services, Carousel, Contact, Footer, Animations) --- */
+    /* --- RESTO DE ESTILOS --- */
     section { max-width: 1000px; margin: auto; padding: 40px 20px; }
     h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
     .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
@@ -107,22 +107,23 @@
         flex-direction: column;
         align-items: center;
         padding: 0 20px;
-        /* Ajuste clave: Reducir padding-top para subir TODO el bloque */
-        padding-top: 5vh; /* Antes 8vh. Prueba 4vh, 6vh... */
+        padding-top: 5vh;
       }
       .header-logo {
-          max-width: 350px;
+          max-width: 350px; /* Tamaño logo desktop */
           width: auto;
-          /* Ajuste clave: Aumentar margen inferior para bajar subtítulo y nav */
-          margin-bottom: 3.5em; /* Antes 1em. Prueba 3em, 4em... */
+          /* Ajuste clave: Aumentar MUCHO margen inferior para bajar todo lo demás */
+          margin-bottom: 7em; /* Antes 3.5em. Prueba 6em, 8em... */
       }
       .header-subtitle {
           opacity: 0;
           animation: fadeInRise 1.2s ease-out 0.3s forwards;
+          /* Añadir margen inferior al subtítulo si es necesario */
+          /* margin-bottom: 1em; */
       }
       header nav {
-         /* Ajuste clave: Aumentar margen superior para bajar MÁS la nav */
-         margin-top: 80px; /* Antes 40px. Prueba 70px, 100px... */
+         /* Ajuste clave: Aumentar MUCHO margen superior para bajar MÁS la nav */
+         margin-top: 120px; /* Antes 80px. Prueba 100px, 150px... */
          margin-bottom: 20px; /* Mantener o ajustar espacio inferior */
       }
     }
@@ -202,14 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const maxTilt = 8;
     header.addEventListener('mousemove', (e) => {
       const rect = header.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const width = header.offsetWidth;
-      const height = header.offsetHeight;
-      const normX = (x / width) - 0.5;
-      const normY = (y / height) - 0.5;
-      const tiltY = normX * maxTilt;
-      const tiltX = -normY * maxTilt;
+      const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+      const width = header.offsetWidth; const height = header.offsetHeight;
+      const normX = (x / width) - 0.5; const normY = (y / height) - 0.5;
+      const tiltY = normX * maxTilt; const tiltX = -normY * maxTilt;
       header.style.setProperty('--header-tilt-x', `${tiltX}deg`);
       header.style.setProperty('--header-tilt-y', `${tiltY}deg`);
     });
@@ -226,9 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (track && prevButton && nextButton) {
     const slides = Array.from(track.children);
     let slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
-    let currentIndex = 0;
-    let autoPlayInterval = null;
-    const autoPlayDelay = 3000;
+    let currentIndex = 0; let autoPlayInterval = null; const autoPlayDelay = 3000;
     function moveToSlide(index) { if (slideWidth <= 0 || slides.length === 0) return; const newIndex = Math.max(0, Math.min(index, slides.length - 1)); track.style.transform = 'translateX(-' + slideWidth * newIndex + 'px)'; currentIndex = newIndex; }
     function updateSlideWidth() { if (slides.length > 0) { const newSlideWidth = slides[0].getBoundingClientRect().width; if (newSlideWidth > 0) { slideWidth = newSlideWidth; track.style.transition = 'none'; moveToSlide(currentIndex); void track.offsetWidth; track.style.transition = 'transform 0.5s ease-in-out'; } } }
     function startAutoPlay() { stopAutoPlay(); if (slides.length > 1) { autoPlayInterval = setInterval(showNextSlide, autoPlayDelay); } }
