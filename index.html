@@ -27,8 +27,8 @@
     section { max-width: 1000px; margin: auto; padding: 40px 20px; }
     h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
     .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
-    .service { position: relative; background-color: #1a1a1a; border-radius: 10px; overflow: hidden; padding: 20px; text-align: center; }
-    .service h3, .service p { transition: opacity 1s ease; }
+    .service { position: relative; background-size: cover; background-position: center; border-radius: 10px; overflow: hidden; padding: 20px; text-align: center; height: 300px; display: flex; flex-direction: column; justify-content: flex-end; background-repeat: no-repeat; color: white; text-shadow: 1px 1px 3px #000; }
+    .service h3, .service p { background-color: rgba(0, 0, 0, 0.5); margin: 0; padding: 10px; border-radius: 5px; }
     .carousel { position: relative; overflow: hidden; max-width: 600px; margin: 40px auto; border-radius: 10px; }
     .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
     .carousel-track img { width: 100%; flex-shrink: 0; }
@@ -64,10 +64,10 @@
 <section id="servicios" class="reveal">
   <h2>Servicios</h2>
   <div class="services">
-    <div class="service"><h3>Carteleras Cinematográficas</h3><p>Historias visuales que capturan miradas y emociones.</p></div>
-    <div class="service"><h3>Sátiras Políticas</h3><p>Ironía elegante y crítica inteligente.</p></div>
-    <div class="service"><h3>Memes Realistas</h3><p>Humor visualmente impecable.</p></div>
-    <div class="service"><h3>Storytelling para Marcas</h3><p>Relatos visuales que enamoran y venden.</p></div>
+    <div class="service" style="background-image: url('images/carteleras.jpg');"><h3>Carteleras Cinematográficas</h3><p>Historias visuales que capturan miradas y emociones.</p></div>
+    <div class="service" style="background-image: url('images/satiras.jpg');"><h3>Sátiras Políticas</h3><p>Ironía elegante y crítica inteligente.</p></div>
+    <div class="service" style="background-image: url('images/memes.jpg');"><h3>Memes Realistas</h3><p>Humor visualmente impecable.</p></div>
+    <div class="service" style="background-image: url('images/storytelling.jpg');"><h3>Storytelling para Marcas</h3><p>Relatos visuales que enamoran y venden.</p></div>
   </div>
 </section>
 
@@ -75,13 +75,13 @@
   <h2>Portafolio</h2>
   <div class="carousel">
     <div class="carousel-track">
-      <img src="Images/img1.jpg" alt="Proyecto 1">
-      <img src="Images/img2.jpg" alt="Proyecto 2">
-      <img src="Images/img3.jpg" alt="Proyecto 3">
-      <img src="Images/img4.jpg" alt="Proyecto 4">
-      <img src="Images/img5.jpg" alt="Proyecto 5">
-      <img src="Images/img6.jpg" alt="Proyecto 6">
-      <img src="Images/img7.jpg" alt="Proyecto 7">
+      <img src="images/img1.jpg" alt="Proyecto 1">
+      <img src="images/img2.jpg" alt="Proyecto 2">
+      <img src="images/img3.jpg" alt="Proyecto 3">
+      <img src="images/img4.jpg" alt="Proyecto 4">
+      <img src="images/img5.jpg" alt="Proyecto 5">
+      <img src="images/img6.jpg" alt="Proyecto 6">
+      <img src="images/img7.jpg" alt="Proyecto 7">
     </div>
   </div>
 </section>
