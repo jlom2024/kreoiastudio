@@ -19,7 +19,7 @@
     body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
     header {
       text-align: center;
-      padding: 100px 20px;
+      padding: 100px 20px; /* Padding para móvil */
       position: relative;
       overflow: hidden;
     }
@@ -27,9 +27,8 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      /* AJUSTE CLAVE: Cambiar 'center' por una posición vertical específica */
-      /* Prueba con valores como 'center top', 'center 20%', 'center 30%', 'center 40%' */
-      background: url('images/fondo-soñado.jpg') center 25% / cover no-repeat; /* <--- ¡MODIFICADO! Empezamos con 25% desde arriba */
+      /* REVERSIÓN CLAVE: Volver a centrar la imagen */
+      background: url('images/fondo-soñado.jpg') center center / cover no-repeat; /* <--- MODIFICADO */
       z-index: -1;
       transition: transform 0.1s linear;
       transform: perspective(1000px) rotateX(var(--header-tilt-x, 0deg)) rotateY(var(--header-tilt-y, 0deg));
@@ -47,7 +46,7 @@
       width: 70%;
       height: auto;
       display: block;
-      margin: 0 auto 1em auto;
+      margin: 0 auto 1em auto; /* Margen inferior base móvil */
       position: relative;
       z-index: 1;
     }
@@ -62,7 +61,7 @@
     }
     nav {
        text-align: center;
-       margin: 40px 0;
+       margin: 40px 0; /* Margen base móvil */
        display: flex;
        flex-wrap: wrap;
        justify-content: center;
@@ -104,24 +103,31 @@
     /* --- Estilos específicos para pantallas grandes (Desktop) --- */
     @media (min-width: 992px) {
       header {
-        min-height: 85vh;
+        /* AJUSTE CLAVE: Hacer el header de altura completa */
+        min-height: 100vh; /* Antes 85vh */
         display: flex;
         flex-direction: column;
+        /* AJUSTE CLAVE: Volver a centrar contenido verticalmente */
+        justify-content: center; /* <--- RE-AÑADIDO */
         align-items: center;
         padding: 0 20px;
-        padding-top: 5vh;
+        /* padding-top: 5vh; */ /* <-- ELIMINADO (ya no es necesario con justify-content) */
       }
       .header-logo {
           max-width: 350px;
           width: auto;
-          margin-bottom: 18em; /* Margen grande bajo el logo */
+          /* Margen moderado bajo el logo */
+          margin-bottom: 2.5em; /* Ajusta según veas necesario */
       }
       .header-subtitle {
           opacity: 0;
           animation: fadeInRise 1.2s ease-out 0.3s forwards;
+          /* Opcional: margen inferior */
+          margin-bottom: 1.5em;
       }
       header nav {
-         margin-top: 25px; /* Margen pequeño sobre nav */
+         /* Margen moderado sobre nav */
+         margin-top: 30px; /* Ajusta según veas necesario */
          margin-bottom: 20px;
       }
     }
