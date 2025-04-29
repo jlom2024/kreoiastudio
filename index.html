@@ -8,8 +8,8 @@
   <meta name="author" content="Jorge Luis Ordoñez M.">
   <meta property="og:title" content="KREO IA Studio – Creatividad Humano-IA">
   <meta property="og:description" content="Proyectos creativos únicos fruto de la colaboración entre inteligencia artificial y talento humano.">
-  <meta property="og:image" content="https://kreoiastudio.netlify.app/images/representacion-burbuja.png"> <!-- Ejemplo usando una imagen de tu repo -->
-  <meta property="og:url" content="https://kreoiastudio.netlify.app/"> <!-- URL de tu sitio -->
+  <meta property="og:image" content="https://kreoiastudio.netlify.app/images/representacion-burbuja.png">
+  <meta property="og:url" content="https://kreoiastudio.netlify.app/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_ES">
   <meta property="og:site_name" content="KREO IA Studio">
@@ -18,11 +18,10 @@
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
     header {
-      /* Se mantiene igual: imagen, centrado, cubrir el área, no repetir */
       background: url('images/fondo-soñado.jpg') center/cover no-repeat;
-      /* background-attachment: fixed; */ /* <--- ESTA LÍNEA HA SIDO COMENTADA/ELIMINADA */
+      /* background-attachment: fixed; */ /* Fondo ahora se desplaza con scroll */
       text-align: center;
-      padding: 100px 20px; /* Define el alto inicial del área visible */
+      padding: 100px 20px;
     }
     header h1 { font-size: 3em; margin-bottom: 0.5em; }
     header p { font-size: 1.2em; max-width: 600px; margin: 0 auto; }
@@ -33,8 +32,53 @@
     section { max-width: 1000px; margin: auto; padding: 40px 20px; }
     h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
     .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
-    .service { position: relative; background-size: cover; background-position: center; border-radius: 10px; overflow: hidden; padding: 20px; text-align: center; height: 300px; display: flex; flex-direction: column; justify-content: flex-end; background-repeat: no-repeat; color: white; text-shadow: 1px 1px 3px #000; }
-    .service h3, .service p { background-color: rgba(0, 0, 0, 0.5); margin: 0; padding: 10px; border-radius: 5px; }
+
+    /* --- INICIO: Cambios para Opción 2 (Degradado) --- */
+    .service {
+      position: relative; /* Necesario para el posicionamiento absoluto de ::before */
+      /* background-image: se establece inline */
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      overflow: hidden; /* Importante para que el ::before no se salga */
+      padding: 20px; /* Mantiene un espacio alrededor del contenido */
+      text-align: center;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; /* Alinea el texto abajo */
+      background-repeat: no-repeat;
+      color: white;
+      /* La sombra de texto se manejará individualmente abajo */
+    }
+
+    /* Pseudo-elemento para el degradado */
+    .service::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* Degradado de transparente (arriba) a negro semi-transparente (abajo) */
+      /* Ajusta el '50%' para empezar más arriba/abajo, '0.8' para más/menos oscuridad */
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
+      border-radius: 10px; /* Para que coincida con el borde redondeado del .service */
+      z-index: 1; /* Detrás del texto */
+    }
+
+    /* Estilos para el texto sobre el degradado */
+    .service h3, .service p {
+      background-color: transparent; /* Sin fondo individual */
+      margin: 0;
+      padding: 5px 10px; /* Ajusta el espaciado vertical/horizontal si es necesario */
+      border-radius: 0; /* Ya no aplica */
+      position: relative; /* Necesario para z-index */
+      z-index: 2; /* Encima del degradado ::before */
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* Sombra para mejorar legibilidad */
+    }
+    /* --- FIN: Cambios para Opción 2 (Degradado) --- */
+
     .carousel { position: relative; overflow: hidden; max-width: 600px; margin: 40px auto; border-radius: 10px; }
     .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
     .carousel-track img { width: 100%; flex-shrink: 0; }
@@ -70,6 +114,7 @@
 <section id="servicios" class="reveal">
   <h2>Servicios</h2>
   <div class="services">
+    <!-- Los estilos inline background-image siguen funcionando igual -->
     <div class="service" style="background-image: url('images/carteleras.jpg');"><h3>Carteleras Cinematográficas</h3><p>Historias visuales que capturan miradas y emociones.</p></div>
     <div class="service" style="background-image: url('images/satiras.jpg');"><h3>Sátiras Políticas</h3><p>Ironía elegante y crítica inteligente.</p></div>
     <div class="service" style="background-image: url('images/memes.jpg');"><h3>Memes Realistas</h3><p>Humor visualmente impecable.</p></div>
@@ -81,7 +126,6 @@
   <h2>Portafolio</h2>
   <div class="carousel">
     <div class="carousel-track">
-      <!-- Rutas corregidas para que coincidan con los nombres de archivo en el repo (sin _v1) -->
       <img src="images/img1.jpg" alt="Proyecto 1">
       <img src="images/img2.jpg" alt="Proyecto 2">
       <img src="images/img3.jpg" alt="Proyecto 3">
@@ -109,38 +153,41 @@
 </footer>
 
 <script>
-// Script JS para el carrusel (si lo tienes o lo añades después)
-// y para las animaciones 'reveal' y 'fade-in'
+// Script JS para el carrusel y animaciones (sin cambios)
 document.addEventListener('DOMContentLoaded', () => {
-  // Funcionalidad del carrusel (ejemplo básico)
   const track = document.querySelector('.carousel-track');
-  if (track && track.children.length > 1) { // Solo si hay más de una imagen
+  if (track && track.children.length > 1) {
     let currentIndex = 0;
     const slides = Array.from(track.children);
-    const slideWidth = slides[0].getBoundingClientRect().width;
+    let slideWidth = slides[0].getBoundingClientRect().width;
 
-    // Clonar primera y última para bucle infinito (opcional, mejora la experiencia)
+    function updateSlideWidth() {
+        slideWidth = slides[0].getBoundingClientRect().width;
+        // Check if width is valid before applying transform
+        if (slideWidth > 0) {
+             track.style.transition = 'none'; // Disable transition during resize adjustment
+             track.style.transform = 'translateX(-' + slideWidth * currentIndex + 'px)';
+             // Force reflow/repaint before re-enabling transition
+             void track.offsetWidth;
+             track.style.transition = 'transform 0.5s ease-in-out';
+        }
+    }
 
     function moveToSlide(index) {
-      // Asegurarse de que el ancho es recalculado si la ventana cambia de tamaño (más robusto)
-      const currentSlideWidth = slides[0].getBoundingClientRect().width;
-      if (currentSlideWidth > 0) { // Evitar división por cero si no es visible
-          track.style.transform = 'translateX(-' + currentSlideWidth * index + 'px)';
+      if (slideWidth > 0) {
+          track.style.transform = 'translateX(-' + slideWidth * index + 'px)';
           currentIndex = index;
       }
     }
 
-    // Añadir botones o auto-play si se desea
-    // Ejemplo simple de auto-play cada 3 segundos
     let autoPlayInterval = setInterval(() => {
       let nextIndex = currentIndex + 1;
       if (nextIndex >= slides.length) {
-        nextIndex = 0; // Vuelve al principio
+        nextIndex = 0;
       }
       moveToSlide(nextIndex);
     }, 3000);
 
-    // Pausar en hover (opcional)
     const carousel = document.querySelector('.carousel');
     if(carousel) {
         carousel.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
@@ -148,52 +195,38 @@ document.addEventListener('DOMContentLoaded', () => {
              autoPlayInterval = setInterval(() => {
                 let nextIndex = currentIndex + 1;
                 if (nextIndex >= slides.length) {
-                    nextIndex = 0; // Vuelve al principio
+                    nextIndex = 0;
                 }
                 moveToSlide(nextIndex);
             }, 3000);
         });
     }
 
-     // Recalcular tamaño en resize (importante para responsive)
      window.addEventListener('resize', () => {
-         // Se necesita un pequeño retraso a veces para obtener el tamaño correcto después del resize
-         setTimeout(() => {
-             moveToSlide(currentIndex); // Mueve al slide actual con el nuevo tamaño
-         }, 100);
+         setTimeout(updateSlideWidth, 100); // Use the function to recalculate and move
      });
+
+     // Initial calculation in case images load later or sizes change
+     updateSlideWidth();
   }
 
-
-  // Funcionalidad para animaciones al hacer scroll
   const revealElements = document.querySelectorAll('.reveal');
   const fadeInElements = document.querySelectorAll('.fade-in');
-
-  const observerOptions = {
-    root: null, // viewport
-    threshold: 0.1 // Trigger cuando el 10% del elemento es visible
-  };
-
+  const observerOptions = { root: null, threshold: 0.1 };
   const observerCallback = (entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // Opcional: dejar de observar una vez que es visible para mejorar rendimiento
-        // observer.unobserve(entry.target);
+        // observer.unobserve(entry.target); // Uncomment for performance if needed
       } else {
-         // Opcional: quitar la clase si sale de la vista para re-animar al volver a entrar
-         // entry.target.classList.remove('visible');
+        // entry.target.classList.remove('visible'); // Uncomment to re-animate
       }
     });
   };
-
   const observer = new IntersectionObserver(observerCallback, observerOptions);
-
   revealElements.forEach(el => observer.observe(el));
   fadeInElements.forEach(el => observer.observe(el));
-
 });
-
 </script>
 
 </body>
