@@ -27,7 +27,9 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: url('images/fondo-soñado.jpg') center/cover no-repeat;
+      /* AJUSTE CLAVE: Cambiar 'center' por una posición vertical específica */
+      /* Prueba con valores como 'center top', 'center 20%', 'center 30%', 'center 40%' */
+      background: url('images/fondo-soñado.jpg') center 25% / cover no-repeat; /* <--- ¡MODIFICADO! Empezamos con 25% desde arriba */
       z-index: -1;
       transition: transform 0.1s linear;
       transform: perspective(1000px) rotateX(var(--header-tilt-x, 0deg)) rotateY(var(--header-tilt-y, 0deg));
@@ -45,7 +47,7 @@
       width: 70%;
       height: auto;
       display: block;
-      margin: 0 auto 1em auto; /* Margen inferior base móvil */
+      margin: 0 auto 1em auto;
       position: relative;
       z-index: 1;
     }
@@ -60,7 +62,7 @@
     }
     nav {
        text-align: center;
-       margin: 40px 0; /* Margen base móvil */
+       margin: 40px 0;
        display: flex;
        flex-wrap: wrap;
        justify-content: center;
@@ -112,16 +114,14 @@
       .header-logo {
           max-width: 350px;
           width: auto;
-          /* REVERSIÓN: Volver a un margen más seguro */
-          margin-bottom: 7em; /* Antes 25vh. Prueba 5em, 10em si esto funciona */
+          margin-bottom: 18em; /* Margen grande bajo el logo */
       }
       .header-subtitle {
           opacity: 0;
           animation: fadeInRise 1.2s ease-out 0.3s forwards;
       }
       header nav {
-         /* REVERSIÓN: Volver a margen pequeño */
-         margin-top: 25px; /* Antes 120px */
+         margin-top: 25px; /* Margen pequeño sobre nav */
          margin-bottom: 20px;
       }
     }
