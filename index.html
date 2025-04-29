@@ -24,25 +24,43 @@
       padding: 100px 20px; /* Padding para móvil */
     }
     header h1 {
-       font-size: 1rem; /* Resetea el tamaño de fuente */
-       line-height: 1; /* Evita espacio extra */
-       margin-bottom: 1em; /* Ajusta el margen inferior si es necesario */
+       font-size: 1rem;
+       line-height: 1;
+       margin-bottom: 1em; /* Margen base debajo del logo */
     }
-    /* --- Estilo para el Logo en el Header --- */
     .header-logo {
-      max-width: 250px; /* Ancho máximo del logo (ajústalo a tu gusto) */
-      width: 70%;       /* Ancho relativo al contenedor (ajusta si es necesario) */
-      height: auto;     /* Mantiene la proporción de la imagen */
-      display: block;   /* Permite usar márgenes automáticos para centrar si es necesario */
-      margin: 0 auto 0.5em auto;   /* Centra el logo y añade margen inferior */
+      max-width: 250px;
+      width: 70%;
+      height: auto;
+      display: block;
+      margin: 0 auto 0.5em auto; /* Margen inferior después del logo */
     }
-    /* --- Fin Estilo Logo --- */
+    /* Clase para el párrafo subtítulo */
+    .header-subtitle {
+        font-size: 1.2em;
+        max-width: 600px;
+        margin: 0 auto; /* Centrado */
+        opacity: 1; /* Visible por defecto en móvil */
+        transition: opacity 0.5s; /* Transición suave si se aplica fuera de animación */
+    }
 
-    header p { font-size: 1.2em; max-width: 600px; margin: 0 auto; }
     nav { text-align: center; margin: 40px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
     nav a { color: #ff6600; text-decoration: none; font-weight: bold; font-size: 1.2em; padding: 10px; transition: transform 0.3s ease; }
     nav a:hover { animation: bounce 0.6s; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    /* Definición global de la animación */
+    @keyframes fadeInRise {
+        from {
+            opacity: 0;
+            transform: translateY(20px); /* Empieza ligeramente abajo */
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0); /* Termina en su posición normal */
+        }
+    }
+
     section { max-width: 1000px; margin: auto; padding: 40px 20px; }
     h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
     .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
@@ -106,10 +124,23 @@
         align-items: center;
         padding: 0 20px;
       }
-       /* Aumentar tamaño del logo en desktop si se desea */
       .header-logo {
-          max-width: 350px; /* Un poco más grande en desktop */
-          width: auto; /* Permitir que max-width controle el tamaño */
+          max-width: 350px;
+          width: auto;
+          margin-bottom: 1.5em; /* Aumentar un poco el margen debajo del logo */
+      }
+      /* Aplicar animación al subtítulo en desktop */
+      .header-subtitle {
+          opacity: 0; /* Necesario para que la animación inicie invisible */
+          /* nombre | duración | función-tiempo | retraso | modo-relleno */
+          animation: fadeInRise 1.5s ease-out 0.5s forwards;
+      }
+
+      /* Mover la navegación hacia abajo */
+      header nav {
+         margin-top: 60px; /* Ajusta este valor para más/menos espacio */
+         /* Resetea margen inferior si el global era grande */
+         margin-bottom: 20px; /* Puedes quitarlo si no quieres margen abajo */
       }
     }
     /* --- FIN: Estilos específicos para pantallas grandes (Desktop) --- */
@@ -122,7 +153,8 @@
   <h1>
     <img src="LogoR.png" alt="KREO IA Studio Logo" class="header-logo">
   </h1>
-  <p>Innovación a través de la unión del ingenio humano y la creatividad de la Inteligencia Artificial.</p>
+  <!-- Párrafo con la nueva clase -->
+  <p class="header-subtitle">Innovación a través de la unión del ingenio humano y la creatividad de la Inteligencia Artificial.</p>
   <nav>
     <a href="#quienes-somos">¿Quiénes Somos?</a>
     <a href="#servicios">Servicios</a>
@@ -130,6 +162,8 @@
     <a href="#contacto">Contacto</a>
   </nav>
 </header>
+
+<!-- El resto del body permanece igual -->
 
 <section id="quienes-somos" class="reveal fade-in">
   <h2>¿Quiénes Somos?</h2>
