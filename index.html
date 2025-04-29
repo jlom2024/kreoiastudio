@@ -76,11 +76,10 @@
     /* --- Estilos y animación para logo pulsante --- */
     #pulsating-logo {
         position: fixed;
-        /* AJUSTE: Más espacio desde las esquinas */
-        top: 20px;
-        left: 20px;
-        /* AJUSTE: Tamaño más grande */
-        width: 150px;     /* Antes 50px */
+        /* AJUSTE: Tamaño y posición base (MÓVIL) */
+        top: 15px;
+        left: 15px;
+        width: 100px;     /* Tamaño para móvil */
         height: auto;
         z-index: 1000;
         animation: pulsate 1.5s ease-in-out infinite;
@@ -88,18 +87,9 @@
     }
 
     @keyframes pulsate {
-        0% {
-            transform: scale(1);
-            opacity: 0.9;
-        }
-        50% {
-            transform: scale(1.1);
-            opacity: 1;
-        }
-        100% {
-            transform: scale(1);
-            opacity: 0.9;
-        }
+        0% { transform: scale(1); opacity: 0.9; }
+        50% { transform: scale(1.1); opacity: 1; }
+        100% { transform: scale(1); opacity: 0.9; }
     }
     /* --- FIN: Estilos y animación para logo pulsante --- */
 
@@ -156,6 +146,13 @@
       header nav {
          margin-top: 30px;
          margin-bottom: 20px;
+      }
+
+      /* AJUSTE: Sobrescribir tamaño y posición del logo pulsante para desktop */
+      #pulsating-logo {
+          width: 150px; /* Tamaño para desktop */
+          top: 20px;   /* Más espacio en desktop */
+          left: 20px;
       }
     }
     /* --- FIN: Estilos específicos para pantallas grandes (Desktop) --- */
