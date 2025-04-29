@@ -8,7 +8,6 @@
   <meta name="author" content="Jorge Luis Ordoñez M.">
   <meta property="og:title" content="KREO IA Studio – Creatividad Humano-IA">
   <meta property="og:description" content="Proyectos creativos únicos fruto de la colaboración entre inteligencia artificial y talento humano.">
-  <!-- Asegúrate de que esta URL e imagen sean correctas para tu dominio real -->
   <meta property="og:image" content="https://kreoiastudio.netlify.app/images/representacion-burbuja.png"> <!-- Ejemplo usando una imagen de tu repo -->
   <meta property="og:url" content="https://kreoiastudio.netlify.app/"> <!-- URL de tu sitio -->
   <meta property="og:type" content="website">
@@ -18,7 +17,13 @@
   <title>KREO IA Studio</title>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
-    header { background: url('images/fondo-soñado.jpg') center/cover no-repeat; background-attachment: fixed; text-align: center; padding: 100px 20px; }
+    header {
+      /* Se mantiene igual: imagen, centrado, cubrir el área, no repetir */
+      background: url('images/fondo-soñado.jpg') center/cover no-repeat;
+      /* background-attachment: fixed; */ /* <--- ESTA LÍNEA HA SIDO COMENTADA/ELIMINADA */
+      text-align: center;
+      padding: 100px 20px; /* Define el alto inicial del área visible */
+    }
     header h1 { font-size: 3em; margin-bottom: 0.5em; }
     header p { font-size: 1.2em; max-width: 600px; margin: 0 auto; }
     nav { text-align: center; margin: 40px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
@@ -117,19 +122,46 @@ document.addEventListener('DOMContentLoaded', () => {
     // Clonar primera y última para bucle infinito (opcional, mejora la experiencia)
 
     function moveToSlide(index) {
-      track.style.transform = 'translateX(-' + slideWidth * index + 'px)';
-      currentIndex = index;
+      // Asegurarse de que el ancho es recalculado si la ventana cambia de tamaño (más robusto)
+      const currentSlideWidth = slides[0].getBoundingClientRect().width;
+      if (currentSlideWidth > 0) { // Evitar división por cero si no es visible
+          track.style.transform = 'translateX(-' + currentSlideWidth * index + 'px)';
+          currentIndex = index;
+      }
     }
 
     // Añadir botones o auto-play si se desea
     // Ejemplo simple de auto-play cada 3 segundos
-    setInterval(() => {
+    let autoPlayInterval = setInterval(() => {
       let nextIndex = currentIndex + 1;
       if (nextIndex >= slides.length) {
         nextIndex = 0; // Vuelve al principio
       }
       moveToSlide(nextIndex);
     }, 3000);
+
+    // Pausar en hover (opcional)
+    const carousel = document.querySelector('.carousel');
+    if(carousel) {
+        carousel.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+        carousel.addEventListener('mouseleave', () => {
+             autoPlayInterval = setInterval(() => {
+                let nextIndex = currentIndex + 1;
+                if (nextIndex >= slides.length) {
+                    nextIndex = 0; // Vuelve al principio
+                }
+                moveToSlide(nextIndex);
+            }, 3000);
+        });
+    }
+
+     // Recalcular tamaño en resize (importante para responsive)
+     window.addEventListener('resize', () => {
+         // Se necesita un pequeño retraso a veces para obtener el tamaño correcto después del resize
+         setTimeout(() => {
+             moveToSlide(currentIndex); // Mueve al slide actual con el nuevo tamaño
+         }, 100);
+     });
   }
 
 
@@ -146,10 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // Opcional: dejar de observar una vez que es visible
+        // Opcional: dejar de observar una vez que es visible para mejorar rendimiento
         // observer.unobserve(entry.target);
       } else {
-         // Opcional: quitar la clase si sale de la vista para re-animar
+         // Opcional: quitar la clase si sale de la vista para re-animar al volver a entrar
          // entry.target.classList.remove('visible');
       }
     });
