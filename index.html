@@ -23,7 +23,6 @@
       position: relative;
       overflow: hidden;
     }
-    /* Regla base para el fondo, usa la imagen (recortada) */
     header::before {
       content: '';
       position: absolute;
@@ -74,6 +73,35 @@
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     @keyframes fadeInRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* --- INICIO: Estilos y animación para logo pulsante --- */
+    #pulsating-logo {
+        position: fixed; /* Fijo en la pantalla */
+        top: 15px;       /* Distancia desde arriba */
+        left: 15px;      /* Distancia desde la izquierda */
+        width: 50px;     /* Tamaño del logo (ajusta según necesites) */
+        height: auto;    /* Mantener proporción */
+        z-index: 1000;   /* Asegurar que esté encima de otros elementos */
+        animation: pulsate 1.5s ease-in-out infinite; /* Aplicar animación */
+        will-change: transform; /* Hint de rendimiento */
+    }
+
+    @keyframes pulsate {
+        0% {
+            transform: scale(1);
+            opacity: 0.9;
+        }
+        50% {
+            transform: scale(1.1); /* Crece un 10% */
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0.9;
+        }
+    }
+    /* --- FIN: Estilos y animación para logo pulsante --- */
+
+
     /* --- RESTO DE ESTILOS --- */
     section { max-width: 1000px; margin: auto; padding: 40px 20px; }
     h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
@@ -110,16 +138,13 @@
         align-items: center;
         padding: 0 20px;
       }
-      /* Ajustar posición de la imagen recortada */
       header::before {
-          /* AJUSTE CLAVE: Usar porcentaje MENOR para BAJAR la vista */
-          background-position: center 35%; /* Antes 40%/45%. Prueba 30% si necesita bajar más */
+          background-position: center 35%; /* El valor que te funcionó */
       }
-
       .header-logo {
           max-width: 350px;
           width: auto;
-          margin-bottom: 2.5em; /* Margen moderado */
+          margin-bottom: 2.5em;
       }
       .header-subtitle {
           opacity: 0;
@@ -136,6 +161,10 @@
   </style>
 </head>
 <body>
+
+<!-- INICIO: Logo pulsante fijo -->
+<img src="images/representacion-burbuja.png" alt="Representación Burbuja" id="pulsating-logo">
+<!-- FIN: Logo pulsante fijo -->
 
 <header>
   <h1>
