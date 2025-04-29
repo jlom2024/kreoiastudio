@@ -23,7 +23,7 @@
       position: relative;
       overflow: hidden;
     }
-    /* Regla base para el fondo, usa la imagen (ahora recortada) */
+    /* Regla base para el fondo, usa la imagen (recortada) */
     header::before {
       content: '';
       position: absolute;
@@ -112,8 +112,8 @@
       }
       /* Ajustar posición de la imagen recortada */
       header::before {
-          /* AJUSTE CLAVE: Usar porcentaje MENOR para BAJAR la vista */
-          background-position: center 40%; /* Antes 70%. Prueba 35% si necesita bajar más */
+          /* AJUSTE CLAVE: Punto intermedio para balancear rostros */
+          background-position: center 45%; /* Antes 40%. */
       }
 
       .header-logo {
