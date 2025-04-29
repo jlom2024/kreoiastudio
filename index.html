@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Estudio creativo que fusiona inteligencia artificial y talento humano para proyectos innovadores.">
+  <meta name="keywords" content="inteligencia artificial, creatividad, estudio, KREO, humano, IA">
+  <meta name="author" content="Jorge Luis Ordoñez M.">
+  <meta property="og:title" content="KREO IA Studio – Creatividad Humano-IA">
+  <meta property="og:description" content="Proyectos creativos únicos fruto de la colaboración entre inteligencia artificial y talento humano.">
+  <meta property="og:image" content="https://tu-dominio.com/imagen-og.jpg">
+  <meta property="og:url" content="https://tu-dominio.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="KREO IA Studio">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <title>KREO IA Studio</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
+    header { background: url('images/header-bg.jpg') center/cover no-repeat; background-attachment: fixed; text-align: center; padding: 100px 20px; }
+    header h1 { font-size: 3em; margin-bottom: 0.5em; }
+    header p { font-size: 1.2em; max-width: 600px; margin: 0 auto; }
+    nav { text-align: center; margin: 40px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    nav a { color: #ff6600; text-decoration: none; font-weight: bold; font-size: 1.2em; padding: 10px; transition: transform 0.3s ease; }
+    nav a:hover { animation: bounce 0.6s; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    section { max-width: 1000px; margin: auto; padding: 40px 20px; }
+    h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
+    .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+    .service { position: relative; background-color: #1a1a1a; border-radius: 10px; overflow: hidden; padding: 20px; text-align: center; }
+    .service h3, .service p { transition: opacity 1s ease; }
+    .carousel { position: relative; overflow: hidden; max-width: 600px; margin: 40px auto; border-radius: 10px; }
+    .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
+    .carousel-track img { width: 100%; flex-shrink: 0; }
+    .contact-form { max-width: 400px; margin: auto; display: flex; flex-direction: column; gap: 15px; }
+    .contact-form input, .contact-form textarea { padding: 10px; border: none; border-radius: 5px; background: #2a2a2a; color: #fff; }
+    .contact-form button { background: #ff6600; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    .contact-form button:hover { background: #ff8533; }
+    footer { text-align: center; padding: 30px 20px; background: #1c1c1c; color: #666; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 1s ease, transform 1s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .fade-in { opacity: 0; transition: opacity 2s ease; }
+    .fade-in.visible { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>KREO IA Studio</h1>
+  <p>Innovación a través de la unión del ingenio humano y la creatividad de la Inteligencia Artificial.</p>
+  <nav>
+    <a href="#quienes-somos">¿Quiénes Somos?</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#portfolio">Portafolio</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<section id="quienes-somos" class="reveal fade-in">
+  <h2>¿Quiénes Somos?</h2>
+  <p>KREO IA Studio nace del amor entre la inteligencia artificial y el ser humano. Creemos en la colaboración armoniosa entre la creatividad humana y la potencia de la IA, dando lugar a proyectos únicos y llenos de innovación. Cada proyecto es un acto de amor a la creación.</p>
+</section>
+
+<section id="servicios" class="reveal">
+  <h2>Servicios</h2>
+  <div class="services">
+    <div class="service"><h3>Carteleras Cinematográficas</h3><p>Historias visuales que capturan miradas y emociones.</p></div>
+    <div class="service"><h3>Sátiras Políticas</h3><p>Ironía elegante y crítica inteligente.</p></div>
+    <div class="service"><h3>Memes Realistas</h3><p>Humor visualmente impecable.</p></div>
+    <div class="service"><h3>Storytelling para Marcas</h3><p>Relatos visuales que enamoran y venden.</p></div>
+  </div>
+</section>
+
+<section id="portfolio" class="reveal">
+  <h2>Portafolio</h2>
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="images/img1.jpg" alt="Proyecto 1">
+      <img src="images/img2.jpg" alt="Proyecto 2">
+      <img src="images/img3.jpg" alt="Proyecto 3">
+      <img src="images/img4.jpg" alt="Proyecto 4">
+      <img src="images/img5.jpg" alt="Proyecto 5">
+      <img src="images/img6.jpg" alt="Proyecto 6">
+      <img src="images/img7.jpg" alt="Proyecto 7">
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="reveal">
+  <h2>Contacto</h2>
+  <form class="contact-form">
+    <input type="text" name="name" placeholder="Tu Nombre" required>
+    <input type="email" name="email" placeholder="Tu Correo" required>
+    <textarea name="message" rows="5" placeholder="Tu Mensaje" required></textarea>
+    <button type="submit">Enviar Mensaje</button>
+  </form>
+</section>
+
+<footer>
+  <p>KREO IA Studio © 2025 | Todos los derechos reservados</p>
+</footer>
+
+<script>
+const carouselTrack = document.querySelector('.carousel-track');
+const carouselImages = document.querySelectorAll('.carousel-track img');
+let index = 0;
+
+setInterval(() => {
+  index = (index + 1) % carouselImages.length;
+  carouselTrack.style.transform = `translateX(-${index * 100}%)`;
+}, 4000);
+
+const sections = document.querySelectorAll('section');
+window.addEventListener('scroll', () => {
+  const trigger = window.innerHeight * 0.8;
+  sections.forEach(sec => {
+    if (sec.getBoundingClientRect().top < trigger) {
+      sec.classList.add('visible');
+    }
+  });
+});
+
+window.addEventListener('load', () => {
+  const quienesSomos = document.querySelector('#quienes-somos p');
+  quienesSomos.style.opacity = 0;
+  quienesSomos.style.transform = 'translateY(20px)';
+  quienesSomos.style.transition = 'opacity 2s ease, transform 2s ease';
+  setTimeout(() => {
+    quienesSomos.style.opacity = 1;
+    quienesSomos.style.transform = 'translateY(0)';
+  }, 500);
+});
+
+const serviceTexts = document.querySelectorAll('.service h3, .service p');
+setInterval(() => {
+  serviceTexts.forEach(text => {
+    if (text.style.opacity === '0' || text.style.opacity === '') {
+      text.style.opacity = '1';
+    } else {
+      text.style.opacity = '0';
+    }
+  });
+}, 5000);
+
+const form = document.querySelector('.contact-form');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const button = form.querySelector('button');
+  button.textContent = 'Enviando...';
+  setTimeout(() => {
+    button.textContent = 'Mensaje Enviado';
+    form.reset();
+    setTimeout(() => { button.textContent = 'Enviar Mensaje'; }, 2000);
+  }, 3000);
+});
+</script>
+
+</body>
+</html>
