@@ -41,7 +41,7 @@
        z-index: 1;
     }
     .header-logo {
-      max-width: 250px; /* Tamaño base para móvil */
+      max-width: 250px;
       width: 70%;
       height: auto;
       display: block;
@@ -110,21 +110,21 @@
         padding-top: 5vh;
       }
       .header-logo {
-          max-width: 350px; /* Tamaño logo desktop */
+          max-width: 350px;
           width: auto;
-          /* Ajuste clave: Aumentar MUCHO margen inferior para bajar todo lo demás */
-          margin-bottom: 7em; /* Antes 3.5em. Prueba 6em, 8em... */
+          /* Mantenemos margen grande bajo el logo */
+          margin-bottom: 7em;
       }
       .header-subtitle {
           opacity: 0;
           animation: fadeInRise 1.2s ease-out 0.3s forwards;
-          /* Añadir margen inferior al subtítulo si es necesario */
-          /* margin-bottom: 1em; */
+          /* Opcional: añadir un poco de margen inferior si se ven demasiado pegados */
+          /* margin-bottom: 1.5em; */
       }
       header nav {
-         /* Ajuste clave: Aumentar MUCHO margen superior para bajar MÁS la nav */
-         margin-top: 120px; /* Antes 80px. Prueba 100px, 150px... */
-         margin-bottom: 20px; /* Mantener o ajustar espacio inferior */
+         /* Ajuste clave: Reducir margen superior para ACERCAR la nav al subtítulo */
+         margin-top: 25px; /* Antes 120px. Prueba 20px, 30px... */
+         margin-bottom: 20px;
       }
     }
     /* --- FIN: Estilos específicos para pantallas grandes (Desktop) --- */
