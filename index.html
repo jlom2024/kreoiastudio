@@ -19,7 +19,7 @@
     body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
     header {
       background: url('images/fondo-soñado.jpg') center/cover no-repeat;
-      /* background-attachment: fixed; */ /* Fondo ahora se desplaza con scroll */
+      /* background-attachment: fixed; */
       text-align: center;
       padding: 100px 20px;
     }
@@ -33,26 +33,21 @@
     h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
     .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
 
-    /* --- INICIO: Cambios para Opción 2 (Degradado) --- */
     .service {
-      position: relative; /* Necesario para el posicionamiento absoluto de ::before */
-      /* background-image: se establece inline */
+      position: relative;
       background-size: cover;
       background-position: center;
       border-radius: 10px;
-      overflow: hidden; /* Importante para que el ::before no se salga */
-      padding: 20px; /* Mantiene un espacio alrededor del contenido */
+      overflow: hidden;
+      padding: 20px;
       text-align: center;
       height: 300px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end; /* Alinea el texto abajo */
+      justify-content: flex-end;
       background-repeat: no-repeat;
       color: white;
-      /* La sombra de texto se manejará individualmente abajo */
     }
-
-    /* Pseudo-elemento para el degradado */
     .service::before {
       content: '';
       position: absolute;
@@ -60,24 +55,19 @@
       left: 0;
       width: 100%;
       height: 100%;
-      /* Degradado de transparente (arriba) a negro semi-transparente (abajo) */
-      /* Ajusta el '50%' para empezar más arriba/abajo, '0.8' para más/menos oscuridad */
       background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
-      border-radius: 10px; /* Para que coincida con el borde redondeado del .service */
-      z-index: 1; /* Detrás del texto */
+      border-radius: 10px;
+      z-index: 1;
     }
-
-    /* Estilos para el texto sobre el degradado */
     .service h3, .service p {
-      background-color: transparent; /* Sin fondo individual */
+      background-color: transparent;
       margin: 0;
-      padding: 5px 10px; /* Ajusta el espaciado vertical/horizontal si es necesario */
-      border-radius: 0; /* Ya no aplica */
-      position: relative; /* Necesario para z-index */
-      z-index: 2; /* Encima del degradado ::before */
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* Sombra para mejorar legibilidad */
+      padding: 5px 10px;
+      border-radius: 0;
+      position: relative;
+      z-index: 2;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
     }
-    /* --- FIN: Cambios para Opción 2 (Degradado) --- */
 
     .carousel { position: relative; overflow: hidden; max-width: 600px; margin: 40px auto; border-radius: 10px; }
     .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
@@ -114,7 +104,6 @@
 <section id="servicios" class="reveal">
   <h2>Servicios</h2>
   <div class="services">
-    <!-- Los estilos inline background-image siguen funcionando igual -->
     <div class="service" style="background-image: url('images/carteleras.jpg');"><h3>Carteleras Cinematográficas</h3><p>Historias visuales que capturan miradas y emociones.</p></div>
     <div class="service" style="background-image: url('images/satiras.jpg');"><h3>Sátiras Políticas</h3><p>Ironía elegante y crítica inteligente.</p></div>
     <div class="service" style="background-image: url('images/memes.jpg');"><h3>Memes Realistas</h3><p>Humor visualmente impecable.</p></div>
@@ -140,12 +129,14 @@
 
 <section id="contacto" class="reveal">
   <h2>Contacto</h2>
-  <form class="contact-form">
+  <!-- INICIO: Formulario modificado para Formspree -->
+  <form class="contact-form" action="https://formspree.io/f/mkgronyd" method="POST">
     <input type="text" name="name" placeholder="Tu Nombre" required>
-    <input type="email" name="email" placeholder="Tu Correo" required>
+    <input type="email" name="email" placeholder="Tu Correo" required> <!-- Formspree usa esto como "Reply-to" -->
     <textarea name="message" rows="5" placeholder="Tu Mensaje" required></textarea>
     <button type="submit">Enviar Mensaje</button>
   </form>
+  <!-- FIN: Formulario modificado para Formspree -->
 </section>
 
 <footer>
@@ -163,11 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateSlideWidth() {
         slideWidth = slides[0].getBoundingClientRect().width;
-        // Check if width is valid before applying transform
         if (slideWidth > 0) {
-             track.style.transition = 'none'; // Disable transition during resize adjustment
+             track.style.transition = 'none';
              track.style.transform = 'translateX(-' + slideWidth * currentIndex + 'px)';
-             // Force reflow/repaint before re-enabling transition
              void track.offsetWidth;
              track.style.transition = 'transform 0.5s ease-in-out';
         }
@@ -203,10 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
      window.addEventListener('resize', () => {
-         setTimeout(updateSlideWidth, 100); // Use the function to recalculate and move
+         setTimeout(updateSlideWidth, 100);
      });
 
-     // Initial calculation in case images load later or sizes change
      updateSlideWidth();
   }
 
@@ -217,9 +205,9 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // observer.unobserve(entry.target); // Uncomment for performance if needed
+        // observer.unobserve(entry.target);
       } else {
-        // entry.target.classList.remove('visible'); // Uncomment to re-animate
+        // entry.target.classList.remove('visible');
       }
     });
   };
