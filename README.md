@@ -1,7 +1,6 @@
 # KREO IA Studio 🚀
 
-<!-- Reemplaza YOUR_NETLIFY_SITE_ID y YOUR_NETLIFY_SITE_NAME con los valores correctos de tu sitio en Netlify -->
-<!-- Puedes encontrar esto en la configuración de tu sitio en Netlify -> Badges -->
+(https://app.netlify.com/sites/kreoiastudio/overview)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_NETLIFY_SITE_ID/deploy-status)](https://app.netlify.com/sites/YOUR_NETLIFY_SITE_NAME/deploys)
 
 Sitio web oficial de **KREO IA Studio**, un estudio creativo que fusiona el ingenio humano y la potencia de la Inteligencia Artificial para proyectos innovadores. Este repositorio contiene el código fuente de la página web estática.
