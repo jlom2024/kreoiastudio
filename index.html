@@ -17,23 +17,47 @@
   <title>KREO IA Studio</title>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
+
+    /* --- HEADER BASE --- */
     header {
       /* Estilos base (móvil primero) */
-      background: url('images/fondo-soñado.jpg') center/cover no-repeat;
       text-align: center;
       padding: 100px 20px; /* Padding para móvil */
+      position: relative; /* Necesario para el ::before absoluto */
+      overflow: hidden; /* Evita que el ::before se salga al inclinar */
+      /* background: url('images/fondo-soñado.jpg') center/cover no-repeat; */ /* <-- Eliminado de aquí */
     }
+
+    /* --- INICIO: Pseudo-elemento para fondo 3D --- */
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('images/fondo-soñado.jpg') center/cover no-repeat;
+      z-index: -1; /* Detrás del contenido */
+      transition: transform 0.1s linear; /* Transición rápida para el tilt */
+      /* Usaremos variables CSS para aplicar el transform desde JS */
+      transform: perspective(1000px) rotateX(var(--header-tilt-x, 0deg)) rotateY(var(--header-tilt-y, 0deg));
+      will-change: transform; /* Hint de rendimiento */
+    }
+    /* --- FIN: Pseudo-elemento para fondo 3D --- */
+
+
     header h1 {
        font-size: 1rem;
        line-height: 1;
        margin-bottom: 0;
+       position: relative; /* Asegurar que está sobre ::before */
+       z-index: 1;
     }
     .header-logo {
       max-width: 250px;
       width: 70%;
       height: auto;
       display: block;
-      margin: 0 auto 1em auto; /* Margen inferior después del logo */
+      margin: 0 auto 1em auto;
+      position: relative; /* Asegurar que está sobre ::before */
+      z-index: 1;
     }
     .header-subtitle {
         font-size: 1.2em;
@@ -41,9 +65,20 @@
         margin: 0 auto;
         opacity: 1;
         transition: opacity 0.5s;
+        position: relative; /* Asegurar que está sobre ::before */
+        z-index: 1;
     }
 
-    nav { text-align: center; margin: 40px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    nav {
+       text-align: center;
+       margin: 40px 0;
+       display: flex;
+       flex-wrap: wrap;
+       justify-content: center;
+       gap: 20px;
+       position: relative; /* Asegurar que está sobre ::before */
+       z-index: 1;
+    }
     nav a { color: #ff6600; text-decoration: none; font-weight: bold; font-size: 1.2em; padding: 10px; transition: transform 0.3s ease; }
     nav a:hover { animation: bounce 0.6s; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -53,15 +88,13 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
+    /* --- RESTO DE ESTILOS (Sections, Services, Carousel, Contact, Footer, Animations) --- */
     section { max-width: 1000px; margin: auto; padding: 40px 20px; }
     h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
     .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
-
     .service { position: relative; background-size: cover; background-position: center; border-radius: 10px; overflow: hidden; padding: 20px; text-align: center; height: 300px; display: flex; flex-direction: column; justify-content: flex-end; background-repeat: no-repeat; color: white; }
     .service::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%); border-radius: 10px; z-index: 1; }
     .service h3, .service p { background-color: transparent; margin: 0; padding: 5px 10px; border-radius: 0; position: relative; z-index: 2; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
-
-    /* --- ESTILOS CARRUSEL --- */
     .carousel { position: relative; overflow: hidden; max-width: 600px; margin: 40px auto; border-radius: 10px; }
     .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
     .carousel-track img { width: 100%; flex-shrink: 0; }
@@ -71,8 +104,6 @@
     .carousel-button.prev { left: 15px; }
     .carousel-button.next { right: 15px; }
     .carousel.has-controls .carousel-button { display: block; }
-    /* --- FIN ESTILOS CARRUSEL --- */
-
     .contact-form { max-width: 400px; margin: auto; display: flex; flex-direction: column; gap: 15px; }
     .contact-form input, .contact-form textarea { padding: 10px; border: none; border-radius: 5px; background: #2a2a2a; color: #fff; }
     .contact-form button { background: #ff6600; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
@@ -83,16 +114,18 @@
     .fade-in { opacity: 0; transition: opacity 2s ease; }
     .fade-in.visible { opacity: 1; }
 
+
     /* --- Estilos específicos para pantallas grandes (Desktop) --- */
     @media (min-width: 992px) {
       header {
-        min-height: 85vh; /* Mantenemos o ajustamos si es necesario */
+        min-height: 85vh;
         display: flex;
         flex-direction: column;
-        /* justify-content: center; */ /* <-- ELIMINADO para no centrar verticalmente */
-        align-items: center; /* Mantiene centrado horizontal */
-        padding: 0 20px; /* Quitar padding vertical base */
-        padding-top: 8vh; /* <-- AÑADIDO: Empuja el contenido hacia abajo desde el tope. Ajusta este valor (ej: 5vh, 10vh, 15vh) */
+        /* justify-content: center; */ /* Quitamos centrado vertical */
+        align-items: center;
+        padding: 0 20px;
+        padding-top: 8vh; /* Espacio superior */
+        /* perspective: 1000px; */ /* Perspectiva aplicada en ::before transform */
       }
       .header-logo {
           max-width: 350px;
@@ -104,7 +137,7 @@
           animation: fadeInRise 1.2s ease-out 0.3s forwards;
       }
       header nav {
-         margin-top: 40px; /* Mantenemos o ajustamos el espacio con el subtítulo */
+         margin-top: 40px;
          margin-bottom: 20px;
       }
     }
@@ -114,7 +147,7 @@
 </head>
 <body>
 
-<header>
+<header> <!-- El listener JS se añadirá a este elemento -->
   <h1>
     <img src="LogoR.png" alt="KREO IA Studio Logo" class="header-logo">
   </h1>
@@ -176,9 +209,43 @@
 </footer>
 
 <script>
-// Script JS (sin cambios)
 document.addEventListener('DOMContentLoaded', () => {
 
+  // --- INICIO: Lógica para Efecto 3D Header ---
+  const header = document.querySelector('header');
+  if (header) {
+    const maxTilt = 8; // Máximo ángulo de inclinación en grados (ajusta para más/menos efecto)
+
+    header.addEventListener('mousemove', (e) => {
+      const rect = header.getBoundingClientRect();
+      const x = e.clientX - rect.left; // Coordenada X relativa al header
+      const y = e.clientY - rect.top;  // Coordenada Y relativa al header
+      const width = header.offsetWidth;
+      const height = header.offsetHeight;
+
+      // Normalizar posición del mouse (-0.5 a 0.5)
+      const normX = (x / width) - 0.5;
+      const normY = (y / height) - 0.5;
+
+      // Calcular rotación (invertir Y para que al subir el mouse se incline "hacia atrás")
+      const tiltY = normX * maxTilt;
+      const tiltX = -normY * maxTilt;
+
+      // Aplicar usando variables CSS
+      header.style.setProperty('--header-tilt-x', `${tiltX}deg`);
+      header.style.setProperty('--header-tilt-y', `${tiltY}deg`);
+    });
+
+    header.addEventListener('mouseleave', () => {
+      // Resetear la inclinación al salir
+      header.style.setProperty('--header-tilt-x', '0deg');
+      header.style.setProperty('--header-tilt-y', '0deg');
+    });
+  }
+  // --- FIN: Lógica para Efecto 3D Header ---
+
+
+  // --- Lógica del Carrusel con Controles (Sin cambios) ---
   const carousel = document.querySelector('.carousel');
   const track = carousel?.querySelector('.carousel-track');
   const prevButton = carousel?.querySelector('.carousel-button.prev');
@@ -263,6 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
+  // --- Lógica de Animaciones Reveal/FadeIn (Sin cambios) ---
   const revealElements = document.querySelectorAll('.reveal');
   const fadeInElements = document.querySelectorAll('.fade-in');
   const observerOptions = { root: null, threshold: 0.1 };
