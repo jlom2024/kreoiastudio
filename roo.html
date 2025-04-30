@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Estudio creativo que fusiona inteligencia artificial y talento humano para proyectos innovadores.">
+  <meta name="keywords" content="inteligencia artificial, creatividad, estudio, KREO, humano, IA">
+  <meta name="author" content="Jorge Luis Ordoñez M.">
+  <meta property="og:title" content="KREO IA Studio – Creatividad Humano-IA">
+  <meta property="og:description" content="Proyectos creativos únicos fruto de la colaboración entre inteligencia artificial y talento humano.">
+  <meta property="og:image" content="https://kreoiastudio.netlify.app/images/representacion-burbuja.png">
+  <meta property="og:url" content="https://kreoiastudio.netlify.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="KREO IA Studio">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <title>KREO IA Studio</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
+    header {
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: url('images/fondo-soñado.jpg') center center / cover no-repeat;
+      z-index: -1; transition: transform 0.1s linear;
+      transform: perspective(1000px) rotateX(var(--header-tilt-x, 0deg)) rotateY(var(--header-tilt-y, 0deg));
+      will-change: transform;
+    }
+    header h1 { font-size: 1rem; line-height: 1; margin-bottom: 0; position: relative; z-index: 1; }
+    .header-logo { max-width: 250px; width: 70%; height: auto; display: block; margin: 0 auto 1em auto; position: relative; z-index: 1; }
+    .header-subtitle { font-size: 1.2em; max-width: 600px; margin: 0 auto; opacity: 1; transition: opacity 0.5s; position: relative; z-index: 1; }
+    nav { text-align: center; margin: 40px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; position: relative; z-index: 1; }
+    nav a { color: #ff6600; text-decoration: none; font-weight: bold; font-size: 1.2em; padding: 10px; transition: transform 0.3s ease; }
+    nav a:hover { animation: bounce 0.6s; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes fadeInRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    #pulsating-logo { position: fixed; top: 15px; left: 15px; width: 100px; height: auto; z-index: 1000; animation: pulsate 1.5s ease-in-out infinite; will-change: transform; }
+    @keyframes pulsate { 0% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.9; } }
+
+    section { max-width: 1000px; margin: auto; padding: 40px 20px; }
+    h2 { color: #ff6600; text-align: center; margin-bottom: 20px; }
+    .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+
+    .service { position: relative; background-size: cover; background-position: center; border-radius: 10px; overflow: hidden; padding: 20px; text-align: center; height: 300px; display: flex; flex-direction: column; justify-content: flex-end; background-repeat: no-repeat; color: white; }
+    .service::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%); border-radius: 10px; z-index: 1; }
+    .service h3, .service p { background-color: transparent; margin: 0; padding: 5px 10px; position: relative; z-index: 2; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); opacity: 0.4; transition: opacity 0.3s ease, text-shadow 0.3s ease; }
+    .service:hover h3, .service:hover p { opacity: 1; text-shadow: 1px 1px 1px rgba(0,0,0,0.9); }
+
+    .carousel { position: relative; overflow: hidden; max-width: 600px; margin: 40px auto; border-radius: 10px; }
+    .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
+    .carousel-track img { width: 100%; flex-shrink: 0; }
+    .carousel-button { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 8px 12px; cursor: pointer; border-radius: 50%; font-size: 1.2rem; line-height: 1; z-index: 10; opacity: 0.7; transition: opacity 0.3s ease, background-color 0.3s ease; display: none; }
+    .carousel:hover .carousel-button { opacity: 0.7; }
+    .carousel-button:hover { opacity: 1; background-color: rgba(0, 0, 0, 0.8); }
+    .carousel-button.prev { left: 15px; }
+    .carousel-button.next { right: 15px; }
+    .carousel.has-controls .carousel-button { display: block; }
+
+    /* --- Estilos para Logo Marquee --- */
+    #logo-strip {
+        padding: 15px 0;
+        background-color: #111;
+        overflow: hidden;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .logo-marquee-container {
+        width: 100%;
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+    .logo-marquee-track {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        animation: scrollLogos 40s linear infinite;
+        will-change: transform;
+    }
+    #logo-strip:hover .logo-marquee-track {
+        animation-play-state: paused;
+    }
+    .partner-logo {
+        height: 80px; /* Altura móvil */
+        width: auto;
+        margin: 0 40px;
+        flex-shrink: 0;
+        opacity: 0.7;
+        filter: grayscale(80%);
+        transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+    .partner-logo:hover {
+        opacity: 1;
+        filter: grayscale(0%);
+    }
+    @keyframes scrollLogos {
+        from { transform: translateX(0%); }
+        to { transform: translateX(-50%); }
+    }
+    /* --- FIN: Estilos para Logo Marquee --- */
+
+
+    .contact-form { max-width: 400px; margin: auto; display: flex; flex-direction: column; gap: 15px; }
+    .contact-form input, .contact-form textarea { padding: 10px; border: none; border-radius: 5px; background: #2a2a2a; color: #fff; }
+    .contact-form button { background: #ff6600; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    .contact-form button:hover { background: #ff8533; }
+
+    /* --- Estilos Footer --- */
+    footer { text-align: center; padding: 30px 20px; background: #1c1c1c; color: #666; }
+    footer p { margin: 5px 0; /* Añade un pequeño margen entre párrafos */ }
+    /* --- Fin Estilos Footer --- */
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 1s ease, transform 1s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .fade-in { opacity: 0; transition: opacity 2s ease; }
+    .fade-in.visible { opacity: 1; }
+
+    @media (min-width: 992px) {
+      header { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 20px; }
+      header::before { background-position: center 35%; }
+      .header-logo { max-width: 350px; width: auto; margin-bottom: 2.5em; }
+      .header-subtitle { opacity: 0; animation: fadeInRise 1.2s ease-out 0.3s forwards; margin-bottom: 1.5em; }
+      header nav { margin-top: 30px; margin-bottom: 20px; }
+      #pulsating-logo { width: 150px; top: 20px; left: 20px; }
+       .partner-logo {
+           height: 100px; /* Altura desktop */
+           margin: 0 60px;
+       }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Logo pulsante fijo -->
+<img src="images/representacion-burbuja.png" alt="Representación Burbuja" id="pulsating-logo">
+
+<header>
+  <h1>
+    <img src="LogoR.png" alt="KREO IA Studio Logo" class="header-logo">
+  </h1>
+  <p class="header-subtitle">Innovación a través de la unión del ingenio humano y la creatividad de la Inteligencia Artificial.</p>
+  <nav>
+    <a href="#quienes-somos">¿Quiénes Somos?</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#portfolio">Portafolio</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<!-- Secciones existentes -->
+<section id="quienes-somos" class="reveal fade-in">
+  <h2>¿Quiénes Somos?</h2>
+  <p>KREO IA Studio nace del amor entre la inteligencia artificial y el ser humano. Creemos en la colaboración armoniosa entre la creatividad humana y la potencia de la IA, dando lugar a proyectos únicos y llenos de innovación. Cada proyecto es un acto de amor a la creación.</p>
+</section>
+
+<section id="servicios" class="reveal">
+  <h2>Servicios</h2>
+  <div class="services">
+    <div class="service" style="background-image: url('images/carteleras.jpg');"><h3>Carteleras Cinematográficas</h3><p>Historias visuales que capturan miradas y emociones.</p></div>
+    <div class="service" style="background-image: url('images/satiras.jpg');"><h3>Sátiras Políticas</h3><p>Ironía elegante y crítica inteligente.</p></div>
+    <div class="service" style="background-image: url('images/memes.jpg');"><h3>Memes Realistas</h3><p>Humor visualmente impecable.</p></div>
+    <div class="service" style="background-image: url('images/storytelling.jpg');"><h3>Storytelling para Marcas</h3><p>Relatos visuales que enamoran y venden.</p></div>
+  </div>
+</section>
+
+<section id="portfolio" class="reveal">
+  <h2>Portafolio</h2>
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="images/img1.jpg" alt="Proyecto 1">
+      <img src="images/img2.jpg" alt="Proyecto 2">
+      <img src="images/img3.jpg" alt="Proyecto 3">
+      <img src="images/img4.jpg" alt="Proyecto 4">
+      <img src="images/img5.jpg" alt="Proyecto 5">
+      <img src="images/img6.jpg" alt="Proyecto 6">
+      <img src="images/img7.jpg" alt="Proyecto 7">
+      <img src="images/img8.jpg" alt="Proyecto 8">
+      <img src="images/img9.jpg" alt="Proyecto 9">
+    </div>
+    <button class="carousel-button prev" aria-label="Anterior"><</button>
+    <button class="carousel-button next" aria-label="Siguiente">></button>
+  </div>
+</section>
+
+<!-- Sección de Logos Partners -->
+<section id="logo-strip" aria-labelledby="partners-heading">
+  <div class="logo-marquee-container">
+      <div class="logo-marquee-track">
+          <img src="images/Logo-Cliente-1.png" alt="Logo Cliente 1" class="partner-logo">
+          <img src="images/Logo-Cliente-2.png" alt="Logo Cliente 2" class="partner-logo">
+          <img src="images/Logo-Cliente-3.png" alt="Logo Cliente 3" class="partner-logo">
+          <img src="images/Logo-Cliente-4.png" alt="Logo Cliente 4" class="partner-logo">
+          <img src="images/Logo-Cliente-5.png" alt="Logo Cliente 5" class="partner-logo">
+          <img src="images/Logo-Cliente-6.jpeg" alt="Logo Cliente 6" class="partner-logo">
+          <!-- Copia -->
+          <img src="images/Logo-Cliente-1.png" alt="Logo Cliente 1" class="partner-logo">
+          <img src="images/Logo-Cliente-2.png" alt="Logo Cliente 2" class="partner-logo">
+          <img src="images/Logo-Cliente-3.png" alt="Logo Cliente 3" class="partner-logo">
+          <img src="images/Logo-Cliente-4.png" alt="Logo Cliente 4" class="partner-logo">
+          <img src="images/Logo-Cliente-5.png" alt="Logo Cliente 5" class="partner-logo">
+          <img src="images/Logo-Cliente-6.jpeg" alt="Logo Cliente 6" class="partner-logo">
+      </div>
+  </div>
+</section>
+
+<section id="contacto" class="reveal">
+  <h2>Contacto</h2>
+  <form class="contact-form" action="https://formspree.io/f/mkgronyd" method="POST">
+    <input type="text" name="name" placeholder="Tu Nombre" required>
+    <input type="email" name="email" placeholder="Tu Correo" required>
+    <textarea name="message" rows="5" placeholder="Tu Mensaje" required></textarea>
+    <button type="submit">Enviar Mensaje</button>
+  </form>
+</section>
+
+<footer>
+  <p>KREO IA Studio © 2025 | Todos los derechos reservados</p>
+  <!-- Línea añadida -->
+  <p>Ficción IA: arte, sátira y humor. Parecido a la realidad es coincidencia.</p>
+</footer>
+
+<script>
+// Script JS (sin cambios)
+document.addEventListener('DOMContentLoaded', () => {
+
+  const header = document.querySelector('header');
+  if (header) {
+    const maxTilt = 8;
+    header.addEventListener('mousemove', (e) => {
+      const rect = header.getBoundingClientRect();
+      const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+      const width = header.offsetWidth; const height = header.offsetHeight;
+      const normX = (x / width) - 0.5; const normY = (y / height) - 0.5;
+      const tiltY = normX * maxTilt; const tiltX = -normY * maxTilt;
+      header.style.setProperty('--header-tilt-x', `${tiltX}deg`);
+      header.style.setProperty('--header-tilt-y', `${tiltY}deg`);
+    });
+    header.addEventListener('mouseleave', () => {
+      header.style.setProperty('--header-tilt-x', '0deg');
+      header.style.setProperty('--header-tilt-y', '0deg');
+    });
+  }
+
+  const carousel = document.querySelector('.carousel');
+  const track = carousel?.querySelector('.carousel-track');
+  const prevButton = carousel?.querySelector('.carousel-button.prev');
+  const nextButton = carousel?.querySelector('.carousel-button.next');
+  if (track && prevButton && nextButton) {
+    const slides = Array.from(track.children);
+    let slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
+    let currentIndex = 0; let autoPlayInterval = null; const autoPlayDelay = 3000;
+    function moveToSlide(index) { if (slideWidth <= 0 || slides.length === 0) return; const newIndex = Math.max(0, Math.min(index, slides.length - 1)); track.style.transform = 'translateX(-' + slideWidth * newIndex + 'px)'; currentIndex = newIndex; }
+    function updateSlideWidth() { if (slides.length > 0) { const newSlideWidth = slides[0].getBoundingClientRect().width; if (newSlideWidth > 0) { slideWidth = newSlideWidth; track.style.transition = 'none'; moveToSlide(currentIndex); void track.offsetWidth; track.style.transition = 'transform 0.5s ease-in-out'; } } }
+    function startAutoPlay() { stopAutoPlay(); if (slides.length > 1) { autoPlayInterval = setInterval(showNextSlide, autoPlayDelay); } }
+    function stopAutoPlay() { clearInterval(autoPlayInterval); autoPlayInterval = null; }
+    function showPrevSlide() { stopAutoPlay(); const prevIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1; moveToSlide(prevIndex); startAutoPlay(); }
+    function showNextSlide() { stopAutoPlay(); const nextIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1; moveToSlide(nextIndex); startAutoPlay(); }
+    if (slides.length > 1) { carousel.classList.add('has-controls'); prevButton.addEventListener('click', showPrevSlide); nextButton.addEventListener('click', showNextSlide); carousel.addEventListener('mouseenter', stopAutoPlay); carousel.addEventListener('mouseleave', startAutoPlay); startAutoPlay(); } else { carousel.classList.remove('has-controls'); }
+    let resizeTimer; window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(updateSlideWidth, 150); });
+    if (document.readyState === 'complete') { updateSlideWidth(); } else { window.addEventListener('load', updateSlideWidth); }
+  }
+
+  const revealElements = document.querySelectorAll('.reveal');
+  const fadeInElements = document.querySelectorAll('.fade-in');
+  const observerOptions = { root: null, threshold: 0.1 };
+  const observerCallback = (entries, observer) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } }); };
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+  revealElements.forEach(el => observer.observe(el));
+  fadeInElements.forEach(el => observer.observe(el));
+
+});
+</script>
+
+</body>
+</html>
