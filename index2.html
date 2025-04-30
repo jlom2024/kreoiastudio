@@ -124,15 +124,21 @@
 
     .carousel { position: relative; overflow: hidden; max-width: 600px; margin: 40px auto; border-radius: 10px; }
     .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
-    .carousel-track img {
+    /* MODIFICACIÓN CSS: Aplicar a img Y video */
+    .carousel-track img,
+    .carousel-track video {
         width: 100%; height: auto; /* Perf Note: height:auto si width es 100% */
         flex-shrink: 0; display: block; /* Evita espacio extra debajo */
-        /* Visual Note: Sutil efecto al hacer hover sobre la imagen del carrusel */
+        /* Visual Note: Sutil efecto al hacer hover sobre la imagen/poster */
         transition: transform 0.3s ease;
+        /* Access Note: Ensures video fits container like images */
+        object-fit: cover; /* Optional: Ensure video covers area if aspect ratio differs */
     }
-    .carousel-track img:hover {
+    .carousel-track img:hover,
+    .carousel-track video:hover { /* Aplica hover a ambos */
         transform: scale(1.02);
     }
+    /* FIN MODIFICACIÓN CSS */
     .carousel-button {
         position: absolute; top: 50%; transform: translateY(-50%);
         background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 8px 12px; cursor: pointer; border-radius: 50%; font-size: 1.2rem; line-height: 1; z-index: 10; opacity: 0.7; transition: opacity 0.3s ease, background-color 0.3s ease;
@@ -322,7 +328,12 @@
         <img src="images/img4.jpg" alt="Ejemplo de proyecto KREO IA Studio 4" width="600" height="400" loading="lazy">
         <img src="images/img5.jpg" alt="Ejemplo de proyecto KREO IA Studio 5" width="600" height="400" loading="lazy">
         <img src="images/img6.jpg" alt="Ejemplo de proyecto KREO IA Studio 6" width="600" height="400" loading="lazy">
-        <img src="images/img7.jpg" alt="Ejemplo de proyecto KREO IA Studio 7" width="600" height="400" loading="lazy">
+        <!-- MODIFICACIÓN HTML: Cambiado img por video -->
+        <video controls preload="metadata" poster="images/img7.jpg" width="600" height="400" loading="lazy" aria-label="Ejemplo de proyecto KREO IA Studio 7 (Video)">
+            <source src="videos/vid7.mp4" type="video/mp4">
+            Tu navegador no soporta la etiqueta de video. <!-- Fallback text -->
+        </video>
+        <!-- FIN MODIFICACIÓN HTML -->
         <img src="images/img8.jpg" alt="Ejemplo de proyecto KREO IA Studio 8" width="600" height="400" loading="lazy">
         <img src="images/img9.jpg" alt="Ejemplo de proyecto KREO IA Studio 9" width="600" height="400" loading="lazy">
         <!-- Perf Note: Considerar usar <picture> para formatos WebP/AVIF con fallback a JPG -->
@@ -433,6 +444,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const prevButton = carousel.querySelector('.carousel-button.prev');
       const nextButton = carousel.querySelector('.carousel-button.next');
 
+      // MODIFICACIÓN JS: Obtener también los videos
+      const videoSlides = track.querySelectorAll('video');
+      // FIN MODIFICACIÓN JS
+
       if (track && prevButton && nextButton) {
           const slides = Array.from(track.children);
           let slideWidth = 0; // Se calculará dinámicamente
@@ -458,6 +473,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
           function moveToSlide(index) {
               if (slideWidth <= 0 || slides.length === 0) return;
+
+              // --- MODIFICACIÓN JS: Pausar video saliente ---
+              const currentSlideElement = slides[currentIndex];
+              // Verificar si el elemento actual es un VIDEO antes de intentar pausarlo
+              if (currentSlideElement && typeof currentSlideElement.pause === 'function') {
+                 try {
+                    currentSlideElement.pause();
+                 } catch (error) {
+                    console.warn("No se pudo pausar el slide saliente:", error);
+                 }
+              }
+              // --- FIN MODIFICACIÓN JS ---
+
               // Asegurarse que el índice está dentro de los límites
               const newIndex = Math.max(0, Math.min(index, slides.length - 1));
               track.style.transform = 'translateX(-' + slideWidth * newIndex + 'px)';
@@ -468,14 +496,14 @@ document.addEventListener('DOMContentLoaded', () => {
               stopAutoPlay(); // Detener autoplay al interactuar manualmente
               const prevIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
               moveToSlide(prevIndex);
-              startAutoPlay(); // Reiniciar autoplay después de la interacción
+              // No reiniciar autoplay automáticamente aquí, dejar que los listeners de pausa/mouseleave lo manejen
           }
 
           function showNextSlide() {
               stopAutoPlay();
               const nextIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1;
               moveToSlide(nextIndex);
-              startAutoPlay();
+              // No reiniciar autoplay automáticamente aquí
           }
 
           function startAutoPlay() {
@@ -496,11 +524,42 @@ document.addEventListener('DOMContentLoaded', () => {
               prevButton.addEventListener('click', showPrevSlide);
               nextButton.addEventListener('click', showNextSlide);
 
-              // Pausar autoplay al pasar el ratón por encima, reanudar al salir
+              // Pausar autoplay al pasar el ratón por encima
               carousel.addEventListener('mouseenter', stopAutoPlay);
-              carousel.addEventListener('mouseleave', startAutoPlay);
+              // MODIFICACIÓN JS: Reanudar SÓLO si no hay un video reproduciéndose
+              carousel.addEventListener('mouseleave', () => {
+                  const currentSlideElement = slides[currentIndex];
+                   // Verificar si el elemento actual es un video Y si está pausado
+                  if (currentSlideElement && typeof currentSlideElement.pause === 'function' && currentSlideElement.paused) {
+                      startAutoPlay(); // Reanudar si es video pero está pausado
+                  } else if (!currentSlideElement || typeof currentSlideElement.pause !== 'function') {
+                      startAutoPlay(); // Reanudar si no es un video
+                  }
+              });
 
-              // Iniciar autoplay
+              // --- MODIFICACIÓN JS: Manejar reproducción/pausa de videos ---
+              videoSlides.forEach(video => {
+                  // Detener autoplay si un video empieza a reproducirse
+                  video.addEventListener('play', () => {
+                      stopAutoPlay();
+                  });
+
+                  // Intentar reanudar autoplay si un video se pausa Y el mouse está fuera
+                   video.addEventListener('pause', () => {
+                      // Reanudar sólo si el mouse está fuera Y el video está realmente pausado
+                      if (!carousel.matches(':hover') && video.paused) {
+                          startAutoPlay();
+                      }
+                   });
+
+                  // Opcional: Reanudar al terminar (puede ser molesto, comentado)
+                  // video.addEventListener('ended', () => {
+                  //    if (!carousel.matches(':hover')) { startAutoPlay(); }
+                  // });
+              });
+              // --- FIN MODIFICACIÓN JS ---
+
+              // Iniciar autoplay inicial (si el primer slide no es un video que se reproduzca solo)
               startAutoPlay();
           } else {
               // Si solo hay 1 slide, quitar controles
@@ -515,7 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
 
           // Calcular ancho inicial después de que la página/imágenes carguen
-          // 'load' es más seguro que 'DOMContentLoaded' si las dimensiones dependen de imágenes
+          // 'load' es más seguro que 'DOMContentLoaded' si las dimensiones dependen de imágenes/video
           window.addEventListener('load', updateSlideWidth);
           // Llamada inicial por si 'load' ya ocurrió
           if (document.readyState === 'complete') {
