@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KREO IA Studio – Creatividad Humano-IA</title>
+  <title>KREO IA Studio – Creatividad Humano-IA</title> <!-- Título Final -->
   <meta name="description" content="Estudio creativo que fusiona inteligencia artificial y talento humano para proyectos innovadores.">
   <meta name="author" content="Jorge Luis Ordoñez M.">
   <!-- Metas Open Graph, Twitter, Favicon, Fonts -->
@@ -26,7 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* --- ESTILOS COMPLETOS --- */
+    /* --- ESTILOS COMPLETOS (Incluyendo el estilo para gpt-link-container a) --- */
     body { margin: 0; font-family: 'Open Sans', Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; line-height: 1.6; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
     header { text-align: center; padding: 60px 20px; position: relative; overflow: hidden; min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
@@ -104,25 +104,30 @@
     #chatbot-container.visible { opacity: 1; }
     #chatbot-container elevenlabs-convai { width: 100%; border-radius: 5px; overflow: hidden; min-height: 400px; }
     #access-count-display { margin-top: 15px; font-size: 0.85em; color: #999; text-align: center; }
-    /* --- NUEVO ESTILO PARA EL CONTENEDOR DEL IFRAME GPT --- */
-    #gpt-iframe-container {
+    /* --- ESTILO PARA EL CONTENEDOR DEL ENLACE GPT --- */
+    #gpt-link-container {
       display: none; /* Oculto por defecto */
       margin-top: 25px;
       padding-top: 15px;
       border-top: 1px solid #444;
-      width: 100%; /* Ocupar ancho disponible */
-      aspect-ratio: 16 / 12; /* Proporción, ajustar según necesidad */
-       /* Altura alternativa si aspect-ratio no funciona bien */
-       /* height: 600px; */
-       overflow: hidden; /* Ocultar barras de scroll si es posible */
+      text-align: center;
     }
-    #gpt-iframe-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none; /* Sin borde feo */
+    #gpt-link-container a { /* Estilo para el enlace dentro del contenedor */
+        display: inline-block; /* Para que padding y border funcionen bien */
+        color: #ff8533;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 10px 18px; /* Padding para apariencia de botón */
+        border: 1px solid #ff8533;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
+     #gpt-link-container a:hover {
+        background-color: #ff8533;
+        color: #fff;
+     }
     /* --- Media Queries --- */
-    @media (max-width: 600px) { header { padding: 60px 20px; min-height: 50vh; } header h1 { font-size: 1.3rem; } .header-logo { max-width: 200px; width: 60%; } .header-subtitle { font-size: 1.1em; } nav { gap: 10px; margin-top: 30px; } nav a { font-size: 1.0em; padding: 8px; } h2 { font-size: 1.8em; } #pulsating-logo { width: 80px; } .carousel-track img, .carousel-track video { width: 100%; height: auto; object-fit: contain; } .partner-logo { height: 50px; margin: 0 20px;} .modal-content { width: 90%; padding: 20px; } .modal-content h2 { font-size: 1.5em; } #chatbot-container { max-width: 95%; padding: 15px; margin: 20px auto; min-height: 250px; } #gpt-iframe-container { aspect-ratio: 9 / 12; /* Más vertical en móvil */ } section { padding: 30px 15px; } }
+    @media (max-width: 600px) { header { padding: 60px 20px; min-height: 50vh; } header h1 { font-size: 1.3rem; } .header-logo { max-width: 200px; width: 60%; } .header-subtitle { font-size: 1.1em; } nav { gap: 10px; margin-top: 30px; } nav a { font-size: 1.0em; padding: 8px; } h2 { font-size: 1.8em; } #pulsating-logo { width: 80px; } .carousel-track img, .carousel-track video { width: 100%; height: auto; object-fit: contain; } .partner-logo { height: 50px; margin: 0 20px;} .modal-content { width: 90%; padding: 20px; } .modal-content h2 { font-size: 1.5em; } #chatbot-container { max-width: 95%; padding: 15px; margin: 20px auto; min-height: 250px; } section { padding: 30px 15px; } }
     @media (min-width: 992px) { header { min-height: 85vh; justify-content: flex-start; padding-top: 10vh; padding-bottom: 60px; } header::before { background-position: center 35%; } .header-logo { max-width: 350px; width: auto; } header h1 { font-size: 1.8rem; gap: 1em; margin-bottom: 0.8em;} .header-subtitle { animation: fadeInRise 1.2s ease-out 0.3s forwards; margin-bottom: 1.2em; } nav { margin-top: 30px; } #pulsating-logo { width: 150px; top: 20px; left: 20px; } .partner-logo { height: 100px; margin: 0 60px; } .carousel-track img, .carousel-track video { max-height: 550px; width: auto; object-fit: contain; max-width: 100%; } }
   </style>
 </head>
@@ -135,24 +140,17 @@
     <nav> <a href="#quienes-somos">¿Quiénes Somos?</a> <a href="#servicios">Servicios</a> <a href="#portfolio">Portafolio</a> <a id="asesor-link">Asesor Legal</a> <a href="#contacto">Contacto</a> </nav>
   </header>
   <main>
-    <section id="quienes-somos" class="reveal fade-in"> <h2>¿Quiénes Somos?</h2> <p>KREO IA Studio nace del amor entre la inteligencia artificial y el ser humano. Creemos en la colaboración armoniosa entre la creatividad humana y la potencia de la IA, dando lugar a proyectos únicos y llenos de innovación. Cada proyecto es un acto de amor a la creación.</p> </section>
-    <section id="servicios" class="reveal"> <h2>Servicios</h2> <div class="services"> <div class="service" style="background-image: url('images/carteleras.jpg');"><h3>Carteleras Cinematográficas</h3><p>Historias visuales que capturan miradas y emociones.</p></div> <div class="service" style="background-image: url('images/satiras.jpg');"><h3>Sátiras Políticas</h3><p>Ironía elegante y crítica inteligente.</p></div> <div class="service" style="background-image: url('images/memes.jpg');"><h3>Memes Realistas</h3><p>Humor visualmente impecable.</p></div> <div class="service" style="background-image: url('images/storytelling.jpg');"><h3>Storytelling para Marcas</h3><p>Relatos visuales que enamoran y venden.</p></div> </div> </section>
+    <section id="quienes-somos" class="reveal fade-in"> <h2>¿Quiénes Somos?</h2> <p>KREO IA Studio nace del amor...</p> </section>
+    <section id="servicios" class="reveal"> <h2>Servicios</h2> <div class="services"> <div class="service" style="background-image: url('images/carteleras.jpg');"><h3>Carteleras Cinematográficas</h3><p>Historias visuales...</p></div> <div class="service" style="background-image: url('images/satiras.jpg');"><h3>Sátiras Políticas</h3><p>Ironía elegante...</p></div> <div class="service" style="background-image: url('images/memes.jpg');"><h3>Memes Realistas</h3><p>Humor visualmente...</p></div> <div class="service" style="background-image: url('images/storytelling.jpg');"><h3>Storytelling para Marcas</h3><p>Relatos visuales...</p></div> </div> </section>
     <section id="portfolio" class="reveal">
       <h2>Portafolio</h2>
       <div class="carousel">
         <div class="carousel-track">
-          <img src="images/img1.jpg" alt="Ejemplo 1" width="338" height="600" loading="lazy">
-          <img src="images/img2.jpg" alt="Ejemplo 2" width="338" height="600" loading="lazy">
-          <img src="images/img3.jpg" alt="Ejemplo 3" width="338" height="600" loading="lazy">
-          <img src="images/img4.jpg" alt="Ejemplo 4" width="338" height="600" loading="lazy">
-          <img src="images/img5.jpg" alt="Ejemplo 5" width="338" height="600" loading="lazy">
-          <img src="images/img6.jpg" alt="Ejemplo 6" width="338" height="600" loading="lazy">
+          <img src="images/img1.jpg" alt="Ejemplo 1" width="338" height="600" loading="lazy"> <img src="images/img2.jpg" alt="Ejemplo 2" width="338" height="600" loading="lazy"> <img src="images/img3.jpg" alt="Ejemplo 3" width="338" height="600" loading="lazy"> <img src="images/img4.jpg" alt="Ejemplo 4" width="338" height="600" loading="lazy"> <img src="images/img5.jpg" alt="Ejemplo 5" width="338" height="600" loading="lazy"> <img src="images/img6.jpg" alt="Ejemplo 6" width="338" height="600" loading="lazy">
           <video controls preload="metadata" poster="images/img7.jpg" width="338" height="600" loading="lazy" playsinline aria-label="Ejemplo 7"><source src="videos/vid7.mp4" type="video/mp4">Video no soportado.</video>
-          <img src="images/img8.jpg" alt="Ejemplo 8" width="338" height="600" loading="lazy">
-          <img src="images/img9.jpg" alt="Ejemplo 9" width="338" height="600" loading="lazy">
+          <img src="images/img8.jpg" alt="Ejemplo 8" width="338" height="600" loading="lazy"> <img src="images/img9.jpg" alt="Ejemplo 9" width="338" height="600" loading="lazy">
         </div>
-        <button class="carousel-button prev" aria-label="Anterior">❮</button>
-        <button class="carousel-button next" aria-label="Siguiente">❯</button>
+        <button class="carousel-button prev" aria-label="Anterior">❮</button> <button class="carousel-button next" aria-label="Siguiente">❯</button>
       </div>
     </section>
     <section id="chatbot-section" aria-labelledby="chatbot-heading" style="padding-top: 0; padding-bottom: 0;">
@@ -160,11 +158,9 @@
         <h2 id="chatbot-heading" style="margin-bottom: 20px;">Asesor Legal IA</h2>
         <elevenlabs-convai agent-id="9d1cgbngGwN9G03G6r0B"></elevenlabs-convai>
         <p id="access-count-display"></p>
-        <!-- === NUEVO CONTENEDOR PARA IFRAME GPT === -->
-        <div id="gpt-iframe-container" style="display: none;">
-          <!-- El iframe se insertará aquí por JS -->
-        </div>
-        <!-- === FIN CONTENEDOR IFRAME GPT === -->
+        <!-- === CONTENEDOR PARA ENLACE GPT (Se rellena con JS) === -->
+        <p id="gpt-link-container" style="display: none;"></p>
+        <!-- === FIN CONTENEDOR ENLACE GPT === -->
       </div>
     </section>
     <section id="logo-strip" aria-labelledby="partners-heading"> <h2 id="partners-heading" class="sr-only">Partners y Clientes</h2> <div class="logo-marquee-container"> <div class="logo-marquee-track"> <img src="images/Logo-Cliente-1.png" alt="Cliente 1" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-2.png" alt="Cliente 2" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-3.png" alt="Cliente 3" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-4.png" alt="Cliente 4" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-5.png" alt="Cliente 5" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-6.png" alt="Cliente 6" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-1.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> <img src="images/Logo-Cliente-2.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> <img src="images/Logo-Cliente-3.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> <img src="images/Logo-Cliente-4.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> <img src="images/Logo-Cliente-5.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> <img src="images/Logo-Cliente-6.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> </div> </div> </section>
@@ -183,12 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   if (header && window.matchMedia('(pointer: fine)').matches) {
     const maxTilt = 6;
-    header.addEventListener('mousemove', (e) => {
-      const rect = header.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top;
-      const width = header.offsetWidth; const height = header.offsetHeight; const normX = (x / width) - 0.5; const normY = (y / height) - 0.5;
-      const tiltY = normX * maxTilt; const tiltX = -normY * maxTilt;
-      requestAnimationFrame(() => { header.style.setProperty('--header-tilt-x', `${tiltX}deg`); header.style.setProperty('--header-tilt-y', `${tiltY}deg`); });
-    });
+    header.addEventListener('mousemove', (e) => { const rect = header.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; const width = header.offsetWidth; const height = header.offsetHeight; const normX = (x / width) - 0.5; const normY = (y / height) - 0.5; const tiltY = normX * maxTilt; const tiltX = -normY * maxTilt; requestAnimationFrame(() => { header.style.setProperty('--header-tilt-x', `${tiltX}deg`); header.style.setProperty('--header-tilt-y', `${tiltY}deg`); }); });
     header.addEventListener('mouseleave', () => { requestAnimationFrame(() => { header.style.setProperty('--header-tilt-x', '0deg'); header.style.setProperty('--header-tilt-y', '0deg'); }); });
   }
 
@@ -225,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const usernameInput = document.getElementById('username'); const passwordInput = document.getElementById('password');
   const loginError = document.getElementById('login-error'); const chatbotContainer = document.getElementById('chatbot-container');
   const accessCountDisplay = document.getElementById('access-count-display');
-  const gptIframeContainer = document.getElementById('gpt-iframe-container'); // <<<--- Contenedor del IFRAME
+  const gptLinkContainer = document.getElementById('gpt-link-container'); // <<<--- Contenedor del ENLACE
   const formspreeEndpoint = 'https://formspree.io/f/mkgronyd';
 
   const getAccessCounts = () => { try { const c = localStorage.getItem('userAccessCounts'); return c ? JSON.parse(c) : {}; } catch (e) { console.error("LS Read Error:", e); return {}; } };
@@ -237,8 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
           event.preventDefault();
           if(loginError) loginError.style.display = 'none';
           if(loginForm) loginForm.reset();
-          if(gptIframeContainer) gptIframeContainer.style.display = 'none'; // <<<--- Ocultar IFRAME al abrir modal
-          if(gptIframeContainer) gptIframeContainer.innerHTML = ''; // <<<--- Limpiar IFRAME al abrir modal
+          if(gptLinkContainer) gptLinkContainer.style.display = 'none'; // <<<--- Ocultar ENLACE al abrir modal
+          if(gptLinkContainer) gptLinkContainer.innerHTML = '';      // <<<--- Limpiar ENLACE al abrir modal
           loginModal.classList.add('show');
           if (usernameInput) setTimeout(() => usernameInput.focus(), 50);
       });
@@ -250,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (loginModal) { loginModal.addEventListener('click', (event) => { if (event.target === loginModal) hideModal(); }); loginModal.addEventListener('keydown', (event) => { if (event.key === 'Escape') hideModal(); }); }
 
   // Manejar envío del formulario de login
-  if (loginForm && loginModal && chatbotContainer && gptIframeContainer) { // Añadido gptIframeContainer
+  if (loginForm && loginModal && chatbotContainer && gptLinkContainer) { // Añadido gptLinkContainer
       loginForm.addEventListener('submit', (event) => {
           event.preventDefault();
           const enteredUsername = usernameInput.value.trim();
@@ -266,27 +257,19 @@ document.addEventListener('DOMContentLoaded', () => {
               const accessCounts = getAccessCounts(); accessCounts[enteredUsername] = (accessCounts[enteredUsername] || 0) + 1; saveAccessCounts(accessCounts);
               if (accessCountDisplay) { accessCountDisplay.textContent = `(Sesión local #${accessCounts[enteredUsername]} para ${enteredUsername})`; }
 
-              // --- Crear y Mostrar IFRAME GPT ---
+              // --- Generar y Mostrar Enlace GPT ---
               const gptUrl = 'https://chatgpt.com/g/g-680eaf03ebb481919cd175779b914629-doctor-jorge';
-              gptIframeContainer.innerHTML = ''; // Limpiar contenedor
-              const gptIframe = document.createElement('iframe');
-              gptIframe.src = gptUrl;
-              gptIframe.title = "Asistente GPT Doctor Jorge"; // Título descriptivo para accesibilidad
-              // Los estilos de tamaño (width/height/aspect-ratio) se controlan mejor con CSS
-              // gptIframe.style.width = '100%'; // Ya está en CSS
-              // gptIframe.style.height = '600px'; // Puedes añadir altura fija si aspect-ratio falla
-              gptIframe.frameBorder = "0"; // Obsoleto, pero por si acaso
-              gptIframe.allow = "clipboard-write; microphone"; // Permisos (ajustar si es necesario)
-              gptIframe.setAttribute('allowfullscreen', ''); // Permitir pantalla completa si GPT lo soporta
+              gptLinkContainer.innerHTML = ''; // Limpiar contenedor
+              const gptLink = document.createElement('a'); // Crear elemento <a>
+              gptLink.href = gptUrl;
+              gptLink.textContent = 'Abrir Asistente Avanzado (GPT)'; // Texto del enlace
+              gptLink.target = '_blank'; // Abrir en nueva pestaña
+              gptLink.rel = 'noopener noreferrer'; // Seguridad
 
-              gptIframe.onerror = () => { // Manejador básico de error si el iframe no carga
-                 console.error("Error cargando el iframe del GPT. Posiblemente bloqueado por X-Frame-Options o CSP.");
-                 gptIframeContainer.innerHTML = '<p style="color: #ff4d4d; text-align: center; padding: 20px;">No se pudo cargar el asistente GPT aquí. Puede que necesites abrirlo directamente (si tienes el enlace) o que el sitio no permita ser incrustado.</p>';
-              };
-
-              gptIframeContainer.appendChild(gptIframe);
-              gptIframeContainer.style.display = 'block'; // Hacer visible el contenedor del iframe
-              // --- Fin IFRAME GPT ---
+              // Añadir el enlace al contenedor
+              gptLinkContainer.appendChild(gptLink);
+              gptLinkContainer.style.display = 'block'; // Hacer visible el contenedor
+              // --- Fin Enlace GPT ---
 
               // --- Notificación Formspree ---
               const loginData = new FormData(); const now = new Date(); loginData.append('_subject', `Acceso KREO Asesor: ${enteredUsername}`); loginData.append('Usuario', enteredUsername); loginData.append('Fecha_Hora_UTC', now.toISOString());
@@ -298,18 +281,18 @@ document.addEventListener('DOMContentLoaded', () => {
               if(loginError) loginError.style.display = 'none';
               if(loginForm) loginForm.reset();
 
-              // --- Scroll ---
+              // --- Scroll al Chatbot ---
               setTimeout(() => { if (chatbotContainer) { chatbotContainer.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' }); } else { console.error("Cannot scroll, chatbotContainer not found."); } }, 500);
 
           } else {
               // --- LOGIN FALLIDO ---
               if(loginError) loginError.style.display = 'block'; if(passwordInput) passwordInput.value = ''; if(usernameInput) usernameInput.select(); if (navigator.vibrate) { navigator.vibrate(100); }
-              if(gptIframeContainer) gptIframeContainer.style.display = 'none'; // Ocultar iframe si falla
-              if(gptIframeContainer) gptIframeContainer.innerHTML = ''; // Limpiar iframe si falla
+              if(gptLinkContainer) gptLinkContainer.style.display = 'none'; // Ocultar enlace si falla
+              if(gptLinkContainer) gptLinkContainer.innerHTML = '';      // Limpiar enlace si falla
           }
       });
   } else {
-       if(!loginForm) console.error("Login form not found."); if(!loginModal) console.error("Login modal not found."); if(!chatbotContainer) console.error("Chatbot container not found."); if(!gptIframeContainer) console.error("GPT Iframe Container not found.");
+       if(!loginForm) console.error("Login form not found."); if(!loginModal) console.error("Login modal not found."); if(!chatbotContainer) console.error("Chatbot container not found."); if(!gptLinkContainer) console.error("GPT Link Container not found.");
   }
 
 }); // Fin DOMContentLoaded
