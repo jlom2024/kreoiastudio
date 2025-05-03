@@ -241,6 +241,7 @@
         background-color: rgba(27, 27, 27, 0.8); /* Fondo sutil semi-transparente */
         border: 1px solid #333; /* Borde sutil */
         border-radius: 8px;
+        min-height: 300px; /* <<<--- ALTURA MÍNIMA AÑADIDA ---<<< */
         opacity: 0; /* Para animación fade-in */
         transition: opacity 0.5s ease-in-out;
         will-change: opacity;
@@ -277,7 +278,7 @@
         .partner-logo { height: 50px; margin: 0 20px;} /* Reducido tamaño y margen logos */
         .modal-content { width: 90%; padding: 20px; } /* Ajusta modal en móviles */
         .modal-content h2 { font-size: 1.5em; }
-        #chatbot-container { max-width: 95%; padding: 15px; margin: 20px auto; } /* Ajuste chatbot en móvil */
+        #chatbot-container { max-width: 95%; padding: 15px; margin: 20px auto; min-height: 250px; } /* Ajuste chatbot y min-height en móvil */
         section { padding: 30px 15px; } /* Reducido padding secciones */
     }
 
@@ -614,8 +615,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---!!! CONFIGURACIÓN DE CREDENCIALES (INSEGURO) !!!---
   const validCredentials = {
-      "KOKO2025": "2025KOKO", // Cambia esto
-      "otro_cliente": "kreo_acceso"      // Añade más aquí
+      "KOKO2025": "2025KOKO",        // <<<--- VERIFICA ESTA LÍNEA
+      "otro_cliente": "kreo_acceso"
       // "nombre_usuario": "su_contraseña",
   };
   // ---!!! FIN CONFIGURACIÓN CREDENCIALES !!!---
@@ -736,10 +737,10 @@ document.addEventListener('DOMContentLoaded', () => {
               loginError.style.display = 'none'; // Ocultar error si estaba visible
               loginForm.reset(); // Limpiar formulario
 
-              // Scroll suave hacia el chatbot después de mostrarlo
+              // Scroll suave hacia el chatbot después de mostrarlo y darle tiempo
               setTimeout(() => {
                  chatbotContainer.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' }); // Ajustado block a start
-              }, 300); // Dar tiempo a la animación de opacidad
+              }, 1500); // <<<--- TIEMPO AUMENTADO A 1.5 SEGUNDOS ---<<<
 
           } else {
               // --- LOGIN FALLIDO ---
