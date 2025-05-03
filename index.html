@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KREO IA Studio – Creatividad Humano-IA</title> <!-- Título Final -->
+  <title>KREO IA Studio – Creatividad Humano-IA</title>
   <meta name="description" content="Estudio creativo que fusiona inteligencia artificial y talento humano para proyectos innovadores.">
   <meta name="author" content="Jorge Luis Ordoñez M.">
   <!-- Metas Open Graph, Twitter, Favicon, Fonts -->
@@ -26,7 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* --- ESTILOS COMPLETOS (Incluyendo min-height para chatbot container) --- */
+    /* --- ESTILOS COMPLETOS --- */
     body { margin: 0; font-family: 'Open Sans', Arial, sans-serif; background: #000; color: #fff; scroll-behavior: smooth; line-height: 1.6; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
     header { text-align: center; padding: 60px 20px; position: relative; overflow: hidden; min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
@@ -102,8 +102,30 @@
     #login-error { color: #ff4d4d; margin-top: 15px; font-weight: bold; display: none; }
     #chatbot-container { display: none; margin: 40px auto; max-width: 600px; padding: 20px; background-color: rgba(27, 27, 27, 0.8); border: 1px solid #333; border-radius: 8px; min-height: 300px; opacity: 0; transition: opacity 0.5s ease-in-out; will-change: opacity; }
     #chatbot-container.visible { opacity: 1; }
-    #chatbot-container elevenlabs-convai { width: 100%; border-radius: 5px; overflow: hidden; min-height: 400px; /* Añadido min-height al widget por si acaso */ }
+    #chatbot-container elevenlabs-convai { width: 100%; border-radius: 5px; overflow: hidden; min-height: 400px; }
     #access-count-display { margin-top: 15px; font-size: 0.85em; color: #999; text-align: center; }
+    /* --- NUEVO ESTILO PARA EL CONTENEDOR DEL ENLACE GPT --- */
+    #gpt-link-container {
+      display: none; /* Oculto por defecto */
+      margin-top: 25px; /* Espacio extra arriba */
+      padding-top: 15px; /* Espacio interno */
+      border-top: 1px solid #444; /* Línea separadora sutil */
+      text-align: center;
+    }
+    #gpt-link-container a {
+        color: #ff8533; /* Color naranja más brillante */
+        font-weight: bold;
+        text-decoration: none;
+        padding: 8px 15px;
+        border: 1px solid #ff8533;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+     #gpt-link-container a:hover {
+        background-color: #ff8533;
+        color: #fff;
+     }
+    /* --- Media Queries --- */
     @media (max-width: 600px) { header { padding: 60px 20px; min-height: 50vh; } header h1 { font-size: 1.3rem; } .header-logo { max-width: 200px; width: 60%; } .header-subtitle { font-size: 1.1em; } nav { gap: 10px; margin-top: 30px; } nav a { font-size: 1.0em; padding: 8px; } h2 { font-size: 1.8em; } #pulsating-logo { width: 80px; } .carousel-track img, .carousel-track video { width: 100%; height: auto; object-fit: contain; } .partner-logo { height: 50px; margin: 0 20px;} .modal-content { width: 90%; padding: 20px; } .modal-content h2 { font-size: 1.5em; } #chatbot-container { max-width: 95%; padding: 15px; margin: 20px auto; min-height: 250px; } section { padding: 30px 15px; } }
     @media (min-width: 992px) { header { min-height: 85vh; justify-content: flex-start; padding-top: 10vh; padding-bottom: 60px; } header::before { background-position: center 35%; } .header-logo { max-width: 350px; width: auto; } header h1 { font-size: 1.8rem; gap: 1em; margin-bottom: 0.8em;} .header-subtitle { animation: fadeInRise 1.2s ease-out 0.3s forwards; margin-bottom: 1.2em; } nav { margin-top: 30px; } #pulsating-logo { width: 150px; top: 20px; left: 20px; } .partner-logo { height: 100px; margin: 0 60px; } .carousel-track img, .carousel-track video { max-height: 550px; width: auto; object-fit: contain; max-width: 100%; } }
   </style>
@@ -130,7 +152,6 @@
           <img src="images/img5.jpg" alt="Ejemplo de proyecto KREO IA Studio 5 (9:16)" width="338" height="600" loading="lazy">
           <img src="images/img6.jpg" alt="Ejemplo de proyecto KREO IA Studio 6 (9:16)" width="338" height="600" loading="lazy">
           <video controls preload="metadata" poster="images/img7.jpg" width="338" height="600" loading="lazy" playsinline aria-label="Ejemplo de proyecto KREO IA Studio 7 (Video 9:16)">
-              <!-- Source WebM eliminada -->
               <source src="videos/vid7.mp4" type="video/mp4">
               Tu navegador no soporta la etiqueta de video.
           </video>
@@ -144,11 +165,14 @@
     <section id="chatbot-section" aria-labelledby="chatbot-heading" style="padding-top: 0; padding-bottom: 0;">
       <div id="chatbot-container">
         <h2 id="chatbot-heading" style="margin-bottom: 20px;">Asesor Legal IA</h2>
-        <!-- ================================== -->
-        <!-- === ELEVENLABS WIDGET ACTIVADO === -->
-        <!-- ================================== -->
+        <!-- Widget de ElevenLabs activado -->
         <elevenlabs-convai agent-id="9d1cgbngGwN9G03G6r0B"></elevenlabs-convai>
         <p id="access-count-display"></p>
+        <!-- === NUEVO CONTENEDOR PARA ENLACE GPT === -->
+        <p id="gpt-link-container" style="display: none;">
+          <!-- El enlace se insertará aquí por JS -->
+        </p>
+        <!-- === FIN CONTENEDOR ENLACE GPT === -->
       </div>
     </section>
     <section id="logo-strip" aria-labelledby="partners-heading"> <h2 id="partners-heading" class="sr-only">Partners y Clientes</h2> <div class="logo-marquee-container"> <div class="logo-marquee-track"> <img src="images/Logo-Cliente-1.png" alt="Cliente 1" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-2.png" alt="Cliente 2" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-3.png" alt="Cliente 3" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-4.png" alt="Cliente 4" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-5.png" alt="Cliente 5" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-6.png" alt="Cliente 6" class="partner-logo" width="150" height="100" loading="lazy"> <img src="images/Logo-Cliente-1.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> <img src="images/Logo-Cliente-2.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> <img src="images/Logo-Cliente-3.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> <img src="images/Logo-Cliente-4.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> <img src="images/Logo-Cliente-5.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> <img src="images/Logo-Cliente-6.png" alt="" class="partner-logo" width="150" height="100" loading="lazy" aria-hidden="true"> </div> </div> </section>
@@ -157,9 +181,9 @@
   <footer> <p>KREO IA Studio © 2025 | Todos los derechos reservados</p> <p>Ficción IA: arte, sátira y humor. Parecido a la realidad es coincidencia.</p> <p>Visítanos en Tiktok:</p> <a href="https://www.tiktok.com/@kreo_ai_studio" target="_blank" rel="noopener noreferrer" aria-label="Visita nuestro perfil de TikTok"> <img src="images/tiktok-icon.png" alt="TikTok" width="24" height="24" style="filter: grayscale(30%); transition: filter 0.3s ease;"> </a> </footer>
   <div id="login-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="login-heading"> <div class="modal-content"> <span class="close-button" id="close-login-modal" aria-label="Cerrar" role="button" tabindex="0">×</span> <h2 id="login-heading">Acceso Asesor Legal</h2> <form id="login-form" novalidate> <label for="username">Usuario:</label> <input type="text" id="username" name="username" required placeholder="Introduce tu usuario" aria-required="true"> <label for="password">Contraseña:</label> <input type="password" id="password" name="password" required placeholder="Introduce tu contraseña" aria-required="true"> <button type="submit">Ingresar</button> <p id="login-error" role="alert" aria-live="assertive">Usuario o contraseña incorrectos.</p> </form> </div> </div>
 
-<!-- ============================================= -->
-<!-- === INICIO SCRIPT COMPLETO RESTAURADO === -->
-<!-- ============================================= -->
+<!-- ================================== -->
+<!-- === SCRIPT COMPLETO RESTAURADO === -->
+<!-- ================================== -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -246,12 +270,12 @@ document.addEventListener('DOMContentLoaded', () => {
       fadeInElements.forEach(el => fadeInObserver.observe(el));
   } else { console.warn("IntersectionObserver not supported."); revealElements.forEach(el => el.classList.add('visible')); document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible')); }
 
-  // --- LÓGICA DE LOGIN Y CHATBOT (COMPLETA, SIN DEBUG LOGS EXCESIVOS) ---
+  // --- LÓGICA DE LOGIN Y CHATBOT ---
 
   // ---!!! CONFIGURACIÓN DE CREDENCIALES (INSEGURO) !!!---
   const validCredentials = {
       "KOKO2025": "2025KOKO",
-      "otro_cliente": "kreo_acceso" // Restaurado
+      "otro_cliente": "kreo_acceso"
   };
   // ---!!! FIN CONFIGURACIÓN CREDENCIALES !!!---
 
@@ -262,8 +286,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const usernameInput = document.getElementById('username');
   const passwordInput = document.getElementById('password');
   const loginError = document.getElementById('login-error');
-  const chatbotContainer = document.getElementById('chatbot-container'); // Scroll target
+  const chatbotContainer = document.getElementById('chatbot-container');
   const accessCountDisplay = document.getElementById('access-count-display');
+  const gptLinkContainer = document.getElementById('gpt-link-container'); // <<<--- Contenedor del enlace GPT
   const formspreeEndpoint = 'https://formspree.io/f/mkgronyd'; // TU ENDPOINT
 
   const getAccessCounts = () => { try { const c = localStorage.getItem('userAccessCounts'); return c ? JSON.parse(c) : {}; } catch (e) { console.error("LS Read Error:", e); return {}; } };
@@ -275,6 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
           event.preventDefault();
           if(loginError) loginError.style.display = 'none';
           if(loginForm) loginForm.reset();
+          if(gptLinkContainer) gptLinkContainer.style.display = 'none'; // <<<--- Ocultar enlace GPT al abrir modal
           loginModal.classList.add('show');
           if (usernameInput) setTimeout(() => usernameInput.focus(), 50);
       });
@@ -289,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Manejar envío del formulario de login
-  if (loginForm && loginModal && chatbotContainer) { // chatbotSection no es estrictamente necesario aquí si apuntamos a chatbotContainer
+  if (loginForm && loginModal && chatbotContainer && gptLinkContainer) { // Añadido gptLinkContainer
       loginForm.addEventListener('submit', (event) => {
           event.preventDefault();
           const enteredUsername = usernameInput.value.trim();
@@ -301,21 +327,33 @@ document.addEventListener('DOMContentLoaded', () => {
               hideModal();
 
               // Mostrar contenedor del chatbot
-              if (chatbotContainer) {
-                 chatbotContainer.style.display = 'block';
-                 // La clase visible se añadirá por el IntersectionObserver si está configurado para ello,
-                 // o podemos forzarla si quitamos .reveal de la sección del chatbot
-                 // Forcemos la visibilidad aquí para asegurar que se muestre tras login:
-                 setTimeout(() => chatbotContainer.classList.add('visible'), 10);
-              } else {
-                 console.error("Chatbot container not found when trying to show.");
-              }
+              chatbotContainer.style.display = 'block';
+              setTimeout(() => chatbotContainer.classList.add('visible'), 10);
 
               // Contador local
               const accessCounts = getAccessCounts();
               accessCounts[enteredUsername] = (accessCounts[enteredUsername] || 0) + 1;
               saveAccessCounts(accessCounts);
               if (accessCountDisplay) { accessCountDisplay.textContent = `(Sesión local #${accessCounts[enteredUsername]} para ${enteredUsername})`; }
+
+              // --- Generar y Mostrar Enlace GPT ---
+              const gptUrl = 'https://chatgpt.com/g/g-680eaf03ebb481919cd175779b914629-doctor-jorge';
+              gptLinkContainer.innerHTML = ''; // Limpiar por si acaso
+              const gptLink = document.createElement('a');
+              gptLink.href = gptUrl;
+              gptLink.textContent = 'Generar Documento (GPT)'; // Texto del enlace
+              gptLink.target = '_blank'; // Abrir en nueva pestaña
+              gptLink.rel = 'noopener noreferrer'; // Seguridad y buena práctica
+              // Estilos opcionales (puedes ajustar o quitar)
+              gptLink.style.color = '#ff8533';
+              gptLink.style.fontWeight = 'bold';
+              gptLink.style.textDecoration = 'underline';
+              gptLink.style.padding = '5px';
+
+              gptLinkContainer.appendChild(gptLink);
+              gptLinkContainer.style.display = 'block'; // Hacer visible el contenedor del enlace
+              // --- Fin Enlace GPT ---
+
 
               // --- Enviar Notificación a Formspree ---
               const loginData = new FormData(); const now = new Date();
@@ -332,7 +370,6 @@ document.addEventListener('DOMContentLoaded', () => {
               // --- Scroll al Chatbot ---
               setTimeout(() => {
                   if (chatbotContainer) {
-                     // Ya no necesitamos console.log aquí en la versión final
                      chatbotContainer.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
                   } else {
                       console.error("Cannot scroll, chatbotContainer not found.");
@@ -345,6 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
               if(passwordInput) passwordInput.value = '';
               if(usernameInput) usernameInput.select();
               if (navigator.vibrate) { navigator.vibrate(100); }
+              if(gptLinkContainer) gptLinkContainer.style.display = 'none'; // Ocultar enlace GPT si falla
           }
       });
   } else {
@@ -352,14 +390,15 @@ document.addEventListener('DOMContentLoaded', () => {
        if(!loginForm) console.error("Login form not found on DOMContentLoaded.");
        if(!loginModal) console.error("Login modal not found on DOMContentLoaded.");
        if(!chatbotContainer) console.error("Chatbot container not found on DOMContentLoaded.");
+       if(!gptLinkContainer) console.error("GPT Link Container not found on DOMContentLoaded."); // Añadido chequeo
   }
 
 }); // Fin de document.addEventListener('DOMContentLoaded')
 </script>
 
-<!-- ============================================= -->
+<!-- ================================== -->
 <!-- === SCRIPT DE ELEVENLABS ACTIVADO === -->
-<!-- ============================================= -->
+<!-- ================================== -->
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
 </body>
